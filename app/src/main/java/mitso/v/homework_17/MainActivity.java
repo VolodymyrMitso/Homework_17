@@ -2,14 +2,9 @@ package mitso.v.homework_17;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import java.util.ArrayList;
-
-import mitso.v.homework_17.api.Api;
-import mitso.v.homework_17.api.interfaces.ConnectCallback;
-import mitso.v.homework_17.api.models.User;
-import mitso.v.homework_17.api.response.UserListResponse;
+import mitso.v.homework_17.fragments.BaseFragment;
+import mitso.v.homework_17.fragments.UsersFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,35 +15,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        Api.getUsers(new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                UserListResponse userListResponse = (UserListResponse) object;
-                ArrayList<User> userArrayList = userListResponse.getUsers();
+        updateFragment(new UsersFragment());
 
-                Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
+//        Api.getUsers(new ConnectCallback() {
+//            @Override
+//            public void onSuccess(Object object) {
+//                UserListResponse userListResponse = (UserListResponse) object;
+//                ArrayList<User> userArrayList = userListResponse.getUsers();
+//
+//                Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
+//
+//                for (int i = 0; i < userArrayList.size(); i++)
+//                    Log.e(LOG_TAG, userArrayList.get(i).toString());
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable throwable, String errorMessage) {
+//                Log.d(LOG_TAG, "onFailure=" + errorMessage);
+//            }
+//        });
+//
+//        Api.getUser(7, new ConnectCallback() {
+//            @Override
+//            public void onSuccess(Object object) {
+//                User user = (User) object;
+//                Log.e(LOG_TAG, user.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable throwable, String errorMessage) {
+//
+//            }
+//        });
+    }
 
-                for (int i = 0; i < userArrayList.size(); i++)
-                    Log.e(LOG_TAG, userArrayList.get(i).toString());
-            }
-
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
-                Log.d(LOG_TAG, "onFailure=" + errorMessage);
-            }
-        });
-
-        Api.getUser(7, new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                User user = (User) object;
-                Log.e(LOG_TAG, user.toString());
-            }
-
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
-
-            }
-        });
+    private void updateFragment(BaseFragment baseFragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_FragmentContainer_AM, baseFragment)
+                .commitAllowingStateLoss();
     }
 }

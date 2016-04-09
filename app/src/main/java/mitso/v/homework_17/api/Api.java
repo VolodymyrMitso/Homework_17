@@ -5,6 +5,8 @@ import mitso.v.homework_17.api.models.User;
 import mitso.v.homework_17.api.response.UserListResponse;
 
 public class Api {
+
+
     public static void getUsers(ConnectCallback callback) {
         Connect.getInstance().getRequest(ApiConstants.USERS, new UserListResponse(), callback);
     }
