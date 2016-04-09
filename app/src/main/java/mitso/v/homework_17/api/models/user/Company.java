@@ -32,10 +32,8 @@ public class Company {
 
     @Override
     public String toString() {
-        return "Company {\n" +
-                "   name = " + name + "\n" +
-                "   catchPhrase = " + catchPhrase + "\n" +
-                "   bs = " + bs + "\n" +
-                "   }";
+        return  "\n----- name = " + name +
+                "\n----- catchPhrase = " + catchPhrase +
+                "\n----- bs = " + bs;
     }
 }

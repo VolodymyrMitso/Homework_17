@@ -1,8 +1,5 @@
 package mitso.v.homework_17.api.response;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -11,7 +8,7 @@ import java.util.ArrayList;
 
 import mitso.v.homework_17.api.Connect;
 import mitso.v.homework_17.api.interfaces.ModelResponse;
-import mitso.v.homework_17.api.models.User;
+import mitso.v.homework_17.api.models.user.User;
 
 public class UserListResponse  implements ModelResponse {
     private ArrayList<User> users;
@@ -29,12 +26,6 @@ public class UserListResponse  implements ModelResponse {
                     user.configure(results.getJSONObject(i));
                     users.add(user);
                 }
-                break;
-
-
-            case Connect.PARSER_GSON:
-                Gson gson = new Gson();
-                users = gson.fromJson(results.toString(), new TypeToken<ArrayList<User>>(){}.getType());
                 break;
         }
     }

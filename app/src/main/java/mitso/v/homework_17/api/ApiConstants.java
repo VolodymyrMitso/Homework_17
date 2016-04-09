@@ -3,6 +3,9 @@ package mitso.v.homework_17.api;
 public class ApiConstants {
 
     public static final String URL_SERVER                   = "http://jsonplaceholder.typicode.com";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static final String USERS                        = "/users";
     public static final String USER_ID                      = "/users/";
 
@@ -28,4 +31,14 @@ public class ApiConstants {
     public static final String COMPANY_NAME_KEY             = "name";
     public static final String COMPANY_CATCH_PHRASE_KEY     = "catchPhrase";
     public static final String COMPANY_BS_KEY               = "bs";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static final String TODOS                        = "/todos";
+    public static final String TODO_ID                      = "/todos/";
+
+    public static final String TODO_USER_ID_KEY             = "userId";
+    public static final String TODO_ID_KEY                  = "id";
+    public static final String TODO_TITLE_KEY               = "title";
+    public static final String TODO_COMPLETED_KEY           = "completed";
 }

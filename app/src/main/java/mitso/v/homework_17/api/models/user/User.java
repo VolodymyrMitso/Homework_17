@@ -1,4 +1,4 @@
-package mitso.v.homework_17.api.models;
+package mitso.v.homework_17.api.models.user;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,9 +10,6 @@ import mitso.v.homework_17.api.ApiConstants;
 import mitso.v.homework_17.api.Connect;
 import mitso.v.homework_17.api.interfaces.GsonModel;
 import mitso.v.homework_17.api.interfaces.ModelResponse;
-import mitso.v.homework_17.api.models.user.Address;
-import mitso.v.homework_17.api.models.user.Company;
-import mitso.v.homework_17.api.models.user.Geo;
 
 public class User implements ModelResponse, Serializable, GsonModel {
 
@@ -20,12 +17,9 @@ public class User implements ModelResponse, Serializable, GsonModel {
     private String name;
     private String username;
     private String email;
-
     private Address address;
-
     private String phone;
     private String website;
-
     private Company company;
 
     @Override
@@ -103,14 +97,16 @@ public class User implements ModelResponse, Serializable, GsonModel {
 
     @Override
     public void updateByClass(Object object) {
-        User post = (User) object;
-        this.id = post.id;
-        this.name = post.name;
-        this.username = post.username;
-        this.email = post.email;
+        User user = (User) object;
 
-        this.phone = post.phone;
-        this.website = post.website;
+        this.id = user.id;
+        this.name = user.name;
+        this.username = user.username;
+        this.email = user.email;
+        this.address = user.address;
+        this.phone = user.phone;
+        this.website = user.website;
+        this.company = user.company;
     }
 
     public int getId() {
@@ -171,7 +167,7 @@ public class User implements ModelResponse, Serializable, GsonModel {
 
     @Override
     public String toString() {
-        return "User {\n" +
+        return "----- User Info -----\n" +
                 "id = " + id + "\n" +
                 "name = " + name + "\n" +
                 "username = " + username + "\n" +
@@ -179,7 +175,6 @@ public class User implements ModelResponse, Serializable, GsonModel {
                 "address = " + address + "\n" +
                 "phone = " + phone + "\n" +
                 "website = " + website + "\n" +
-                "company = " + company + "\n" +
-                "}\n";
+                "company = " + company + "\n";
     }
 }

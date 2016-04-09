@@ -23,9 +23,7 @@ public class Geo {
 
     @Override
     public String toString() {
-        return "Geo {\n" +
-                "      lat = " + lat + "\n" +
-                "      lng = " + lng + "\n" +
-                "      }";
+        return  "\n---------- lat = " + lat +
+                "\n---------- lng = " + lng;
     }
 }

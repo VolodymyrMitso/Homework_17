@@ -50,12 +50,10 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address {\n" +
-                "   street = " + street + "\n" +
-                "   suite = " + suite + "\n" +
-                "   city = " + city + "\n" +
-                "   zipcode = " + zipcode + "\n" +
-                "   geo = " + geo + "\n" +
-                "   }";
+        return  "\n----- street = " + street +
+                "\n----- suite = " + suite +
+                "\n----- city = " + city +
+                "\n----- zipcode = " + zipcode +
+                "\n----- geo = " + geo;
     }
 }

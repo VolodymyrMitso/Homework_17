@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
         updateFragment(new UsersFragment());
 
-//        Api.getUsers(new ConnectCallback() {
+//        Api.getTodos(new ConnectCallback() {
 //            @Override
 //            public void onSuccess(Object object) {
 //                UserListResponse userListResponse = (UserListResponse) object;
-//                ArrayList<User> userArrayList = userListResponse.getUsers();
+//                ArrayList<User> userArrayList = userListResponse.getTodos();
 //
 //                Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
 //

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_UserInfo_IF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/d_size_10dp"
+        android:layout_marginRight="@dimen/d_size_10dp"
+        android:layout_marginTop="@dimen/d_size_10dp"
+        android:background="@drawable/sh"
+        android:padding="@dimen/d_size_10dp"
+        android:textColor="@color/c_text"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/d_size_10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_Todo_IF"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sh"
+            android:text="TODOs"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/d_size_10dp"
+            android:layout_marginRight="@dimen/d_size_10dp"
+            android:layout_weight="1"
+            android:background="@drawable/sh"
+            android:text="ALBUMs"
+            android:textAllCaps="false" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sh"
+            android:text="POSTs"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</RelativeLayout>

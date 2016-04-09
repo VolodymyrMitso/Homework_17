@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import mitso.v.homework_17.R;
 import mitso.v.homework_17.api.Api;
 import mitso.v.homework_17.api.interfaces.ConnectCallback;
-import mitso.v.homework_17.api.models.User;
+import mitso.v.homework_17.api.models.user.User;
 import mitso.v.homework_17.api.response.UserListResponse;
 import mitso.v.homework_17.fragments.interfaces.IUserHandler;
 import mitso.v.homework_17.fragments.users_fragment.SpacingDecoration;
@@ -69,20 +69,19 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
     @Override
     public void userOnClick(int position) {
 
+        Toast.makeText(mMainActivity, mUsersList.get(position).toString(), Toast.LENGTH_SHORT).show();
 
-        Api.getUser(position, new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                User user = (User) object;
-                Log.e(LOG_TAG, user.toString());
+        InfoFragment infoFragment = new InfoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("info", mUsersList.get(position).toString());
+        bundle.putInt("id", mUsersList.get(position).getId());
+        infoFragment.setArguments(bundle);
 
-                Toast.makeText(mMainActivity, user.toString(), Toast.LENGTH_SHORT).show();
-            }
+        mMainActivity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fl_FragmentContainer_AM, infoFragment)
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss();
 
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
-
-            }
-        });
     }
 }
