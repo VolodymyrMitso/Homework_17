@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sh"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_TodoInfo_TC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/d_size_5dp"
+        android:clickable="true"
+        android:textColor="@color/c_text"
+        android:textSize="13sp"
+        tools:text="TodoInfo" />
+
+</LinearLayout>

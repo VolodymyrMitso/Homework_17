@@ -1,6 +1,8 @@
 package mitso.v.homework_17.api.models.user;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
 
     private String street;
     private String suite;

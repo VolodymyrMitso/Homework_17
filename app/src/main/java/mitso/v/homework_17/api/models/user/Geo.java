@@ -1,6 +1,8 @@
 package mitso.v.homework_17.api.models.user;
 
-public class Geo {
+import java.io.Serializable;
+
+public class Geo implements Serializable {
 
     private double lat;
     private double lng;

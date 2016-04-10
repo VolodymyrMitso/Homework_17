@@ -18,7 +18,7 @@ import mitso.v.homework_17.api.interfaces.ConnectCallback;
 import mitso.v.homework_17.api.models.user.User;
 import mitso.v.homework_17.api.response.UserListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
-import mitso.v.homework_17.fragments.InfoFragment;
+import mitso.v.homework_17.fragments.UserInfoFragment;
 
 public class UsersFragment extends BaseFragment implements IUserHandler {
 
@@ -70,15 +70,15 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
 
         Toast.makeText(mMainActivity, mUsersList.get(position).toString(), Toast.LENGTH_SHORT).show();
 
-        InfoFragment infoFragment = new InfoFragment();
+        UserInfoFragment userInfoFragment = new UserInfoFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("user", mUsersList.get(position));
 //        bundle.putInt("id", mUsersList.get(position).getId());
-        infoFragment.setArguments(bundle);
+        userInfoFragment.setArguments(bundle);
 
         mMainActivity.getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fl_FragmentContainer_AM, infoFragment)
+                    .replace(R.id.fl_FragmentContainer_AM, userInfoFragment)
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
 

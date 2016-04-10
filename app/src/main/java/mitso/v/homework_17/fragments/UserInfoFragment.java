@@ -12,12 +12,16 @@ import android.widget.Toast;
 import mitso.v.homework_17.R;
 import mitso.v.homework_17.api.models.user.User;
 import mitso.v.homework_17.fragments.album_fragment.AlbumFragment;
+import mitso.v.homework_17.fragments.post_fragment.PostFragment;
+import mitso.v.homework_17.fragments.todo_fragment.TodoFragment;
 
-public class InfoFragment extends BaseFragment implements View.OnClickListener {
+public class UserInfoFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView mTextView_UserInfo;
+
     private Button mButton_ToDo;
     private Button mButton_Album;
+    private Button mButton_Post;
 
 //    private int id;
 
@@ -26,23 +30,26 @@ public class InfoFragment extends BaseFragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.info_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.user_info_fragment, container, false);
 
 //        String string =  getArguments().getString("info");
 //        int id =  getArguments().getInt("id");
 //        this.id = id;
         user = (User) getArguments().getSerializable("user");
 
-        mTextView_UserInfo = (TextView) rootView.findViewById(R.id.tv_UserInfo_IF);
+        mTextView_UserInfo = (TextView) rootView.findViewById(R.id.tv_UserInfo_UIF);
         mTextView_UserInfo.setText(user.toString());
 
         Toast.makeText(mMainActivity, String.valueOf(user.getId()), Toast.LENGTH_SHORT).show();
 
-        mButton_ToDo = (Button) rootView.findViewById(R.id.btn_Todo_IF);
+        mButton_ToDo = (Button) rootView.findViewById(R.id.btn_Todo_UIF);
         mButton_ToDo.setOnClickListener(this);
 
-        mButton_Album = (Button) rootView.findViewById(R.id.btn_Album_IF);
+        mButton_Album = (Button) rootView.findViewById(R.id.btn_Album_UIF);
         mButton_Album.setOnClickListener(this);
+
+        mButton_Post = (Button) rootView.findViewById(R.id.btn_Post_UIF);
+        mButton_Post.setOnClickListener(this);
 
         return rootView;
     }
@@ -54,19 +61,29 @@ public class InfoFragment extends BaseFragment implements View.OnClickListener {
         bundle.putInt("id", user.getId());
 
         switch (v.getId()) {
-            case R.id.btn_Todo_IF:
+            case R.id.btn_Todo_UIF:
 
                 TodoFragment todoFragment = new TodoFragment();
                 todoFragment.setArguments(bundle);
                 updateFragment(todoFragment);
 
                 break;
-            case R.id.btn_Album_IF:
+            case R.id.btn_Album_UIF:
 
                 AlbumFragment albumFragment = new AlbumFragment();
                 albumFragment.setArguments(bundle);
                 updateFragment(albumFragment);
 
+                break;
+            case R.id.btn_Post_UIF:
+
+                PostFragment postFragment = new PostFragment();
+                postFragment.setArguments(bundle);
+                updateFragment(postFragment);
+
+                Toast.makeText(mMainActivity, "aaa", Toast.LENGTH_SHORT).show();
+
+                break;
         }
     }
 

@@ -1,6 +1,8 @@
 package mitso.v.homework_17.api.models.user;
 
-public class Company {
+import java.io.Serializable;
+
+public class Company implements Serializable {
 
     private String name;
     private String catchPhrase;

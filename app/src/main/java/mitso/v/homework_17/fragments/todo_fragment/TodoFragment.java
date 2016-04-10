@@ -1,12 +1,13 @@
-package mitso.v.homework_17.fragments;
+package mitso.v.homework_17.fragments.todo_fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,12 +16,15 @@ import mitso.v.homework_17.api.Api;
 import mitso.v.homework_17.api.interfaces.ConnectCallback;
 import mitso.v.homework_17.api.models.Todo;
 import mitso.v.homework_17.api.response.TodoListResponse;
+import mitso.v.homework_17.fragments.BaseFragment;
 
 public class TodoFragment extends BaseFragment {
 
     private static final String LOG_TAG = "TODO FRAGMENT";
 
-    private TextView mTextView_Todo;
+    private RecyclerView        mRecyclerView_Todo;
+    private TodoAdapter         mTodoAdapter;
+    private ArrayList<Todo>     mTodooList;
 
     @Nullable
     @Override
@@ -28,25 +32,25 @@ public class TodoFragment extends BaseFragment {
         final View rootView = inflater.inflate(R.layout.todo_fragment, container, false);
 
         int id =  getArguments().getInt("id");
-        mTextView_Todo = (TextView) rootView.findViewById(R.id.tv_Todo_IF);
-        final StringBuilder stringBuilder = new StringBuilder();
 
         Api.getTodosByUser(id, new ConnectCallback() {
             @Override
             public void onSuccess(Object object) {
                 TodoListResponse todoListResponse = (TodoListResponse) object;
                 ArrayList<Todo> todoArrayList = todoListResponse.getTodos();
+                mTodooList = todoArrayList;
 
                 Log.e(LOG_TAG, "todoArrayList.size:" + todoArrayList.size());
 
-                Log.e(LOG_TAG, "todoArrayList.first:" + todoArrayList.get(0));
-                Log.e(LOG_TAG, "todoArrayList.last:" + todoArrayList.get(19));
+                Log.e(LOG_TAG, todoArrayList.get(0).toString());
+                Log.e(LOG_TAG, todoArrayList.get(19).toString());
 
-                for (int i = 0; i < todoArrayList.size(); i++) {
-                    stringBuilder.append(todoArrayList.get(i).toString());
-                }
-
-                mTextView_Todo.setText(stringBuilder);
+                mRecyclerView_Todo = (RecyclerView) rootView.findViewById(R.id.rv_Todos_TF);
+                mTodoAdapter = new TodoAdapter(mTodooList);
+                mRecyclerView_Todo.setAdapter(mTodoAdapter);
+                mRecyclerView_Todo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                mRecyclerView_Todo.addItemDecoration(new SpacingDecoration(spacingInPixels));
             }
 
             @Override

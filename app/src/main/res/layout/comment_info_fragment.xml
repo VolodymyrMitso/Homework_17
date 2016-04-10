@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_CommentInfo_CIF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/d_size_10dp"
+        android:background="@drawable/sh"
+        android:padding="@dimen/d_size_10dp"
+        android:textColor="@color/c_text"
+        android:textSize="13sp" />
+</LinearLayout>

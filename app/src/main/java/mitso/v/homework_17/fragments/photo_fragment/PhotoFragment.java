@@ -53,7 +53,7 @@ public class PhotoFragment extends BaseFragment {
                 mRecyclerView_Photo.setAdapter(mPhotoAdapter);
                 mRecyclerView_Photo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
                 int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                mRecyclerView_Photo.addItemDecoration(new mitso.v.homework_17.fragments.album_fragment.SpacingDecoration(spacingInPixels));
+                mRecyclerView_Photo.addItemDecoration(new SpacingDecoration(spacingInPixels));
             }
 
             @Override

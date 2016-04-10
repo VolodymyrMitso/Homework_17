@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
         updateFragment(new UsersFragment());
 
-//        Api.getAlbums(new ConnectCallback() {
+//        Api.getComments(new ConnectCallback() {
 //            @Override
 //            public void onSuccess(Object object) {
 //                UserListResponse userListResponse = (UserListResponse) object;
-//                ArrayList<User> userArrayList = userListResponse.getAlbums();
+//                ArrayList<User> userArrayList = userListResponse.getComments();
 //
 //                Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
 //

@@ -64,4 +64,23 @@ public class ApiConstants {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public static final String POSTS                        = "/posts";
+    public static final String POST_ID                      = "/posts/";
+
+    public static final String POST_USER_ID_KEY             = "userId";
+    public static final String POST_ID_KEY                  = "id";
+    public static final String POST_TITLE_KEY               = "title";
+    public static final String POST_BODY_KEY                = "body";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static final String COMMENTS                     = "/comments";
+    public static final String COMMENT_ID                   = "/comments/";
+
+    public static final String COMMENT_POST_ID_KEY          = "postId";
+    public static final String COMMENT_ID_KEY               = "id";
+    public static final String COMMENT_NAME_KEY             = "name";
+    public static final String COMMENT_EMAIL_KEY            = "email";
+    public static final String COMMENT_BODY_KEY             = "body";
+
 }

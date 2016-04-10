@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_PostInfo_PIF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_Comment_PIF"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/d_size_10dp"
+        android:layout_marginRight="@dimen/d_size_10dp"
+        android:layout_marginTop="@dimen/d_size_10dp"
+        android:background="@drawable/sh"
+        android:padding="@dimen/d_size_10dp"
+        android:textColor="@color/c_text"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/btn_Comment_PIF"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/d_size_10dp"
+        android:background="@drawable/sh"
+        android:text="COMMENTs"
+        android:textAllCaps="false" />
+
+
+</RelativeLayout>

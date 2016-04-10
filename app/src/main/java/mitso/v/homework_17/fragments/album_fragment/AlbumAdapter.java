@@ -12,8 +12,8 @@ import mitso.v.homework_17.api.models.Album;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
 
-    private ArrayList<Album> mAlbumList;
-    private IAlbumHandler mAlbumHandler;
+    private ArrayList<Album>    mAlbumList;
+    private IAlbumHandler       mAlbumHandler;
 
     public AlbumAdapter(ArrayList<Album> albumList) {
         this.mAlbumList = albumList;

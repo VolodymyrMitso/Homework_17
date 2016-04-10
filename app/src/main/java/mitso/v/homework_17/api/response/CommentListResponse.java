@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 import mitso.v.homework_17.api.Connect;
 import mitso.v.homework_17.api.interfaces.ModelResponse;
-import mitso.v.homework_17.api.models.user.User;
+import mitso.v.homework_17.api.models.Comment;
 
-public class UserListResponse  implements ModelResponse {
-    private ArrayList<User> users;
+public class CommentListResponse implements ModelResponse {
+    private ArrayList<Comment> comments;
 
     @Override
     public void configure(Object object) throws JSONException, ParseException {
@@ -20,17 +20,17 @@ public class UserListResponse  implements ModelResponse {
         JSONArray results = (JSONArray) object;
         switch (parser) {
             case Connect.PARSER_JSON:
-                users = new ArrayList<>();
+                comments = new ArrayList<>();
                 for (int i = 0; i < results.length(); i++) {
-                    User user = new User();
-                    user.configure(results.getJSONObject(i));
-                    users.add(user);
+                    Comment comment = new Comment();
+                    comment.configure(results.getJSONObject(i));
+                    comments.add(comment);
                 }
                 break;
         }
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<Comment> getComments() {
+        return comments;
     }
 }

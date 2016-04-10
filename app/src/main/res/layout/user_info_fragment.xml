@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_UserInfo_IF"
+        android:id="@+id/tv_UserInfo_UIF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayout"
@@ -27,7 +27,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_Todo_IF"
+            android:id="@+id/btn_Todo_UIF"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -36,7 +36,7 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_Album_IF"
+            android:id="@+id/btn_Album_UIF"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/d_size_10dp"
@@ -47,6 +47,7 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/btn_Post_UIF"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
