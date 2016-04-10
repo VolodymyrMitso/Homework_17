@@ -1,4 +1,4 @@
-package mitso.v.homework_17.fragments.interfaces;
+package mitso.v.homework_17.fragments.users_fragment;
 
 public interface IUserHandler {
 

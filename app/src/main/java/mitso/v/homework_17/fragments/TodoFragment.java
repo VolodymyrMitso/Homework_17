@@ -27,7 +27,7 @@ public class TodoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.todo_fragment, container, false);
 
-        int id =  getArguments().getInt("to id");
+        int id =  getArguments().getInt("id");
         mTextView_Todo = (TextView) rootView.findViewById(R.id.tv_Todo_IF);
         final StringBuilder stringBuilder = new StringBuilder();
 

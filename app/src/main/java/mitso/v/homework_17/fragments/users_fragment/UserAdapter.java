@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import mitso.v.homework_17.R;
 import mitso.v.homework_17.api.models.user.User;
-import mitso.v.homework_17.fragments.interfaces.IUserHandler;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 

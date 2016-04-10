@@ -41,4 +41,27 @@ public class ApiConstants {
     public static final String TODO_ID_KEY                  = "id";
     public static final String TODO_TITLE_KEY               = "title";
     public static final String TODO_COMPLETED_KEY           = "completed";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static final String ALBUMS                       = "/albums";
+    public static final String ALBUM_ID                     = "/albums/";
+
+    public static final String ALBUM_USER_ID_KEY            = "userId";
+    public static final String ALBUM_ID_KEY                 = "id";
+    public static final String ALBUM_TITLE_KEY              = "title";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static final String PHOTOS                       = "/photos";
+    public static final String PHOTO_ID                     = "/photos/";
+
+    public static final String PHOTO_ALBUM_ID_KEY           = "albumId";
+    public static final String PHOTO_ID_KEY                 = "id";
+    public static final String PHOTO_TITLE_KEY              = "title";
+    public static final String PHOTO_URL_KEY                = "url";
+    public static final String PHOTO_THUMBNAIL_URL_KEY      = "thumbnailUrl";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

@@ -1,7 +1,5 @@
 package mitso.v.homework_17.api;
 
-
-
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;

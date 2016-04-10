@@ -1,4 +1,4 @@
-package mitso.v.homework_17.fragments;
+package mitso.v.homework_17.fragments.users_fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,9 +17,8 @@ import mitso.v.homework_17.api.Api;
 import mitso.v.homework_17.api.interfaces.ConnectCallback;
 import mitso.v.homework_17.api.models.user.User;
 import mitso.v.homework_17.api.response.UserListResponse;
-import mitso.v.homework_17.fragments.interfaces.IUserHandler;
-import mitso.v.homework_17.fragments.users_fragment.SpacingDecoration;
-import mitso.v.homework_17.fragments.users_fragment.UserAdapter;
+import mitso.v.homework_17.fragments.BaseFragment;
+import mitso.v.homework_17.fragments.InfoFragment;
 
 public class UsersFragment extends BaseFragment implements IUserHandler {
 
@@ -73,8 +72,8 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
 
         InfoFragment infoFragment = new InfoFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("info", mUsersList.get(position).toString());
-        bundle.putInt("id", mUsersList.get(position).getId());
+        bundle.putSerializable("user", mUsersList.get(position));
+//        bundle.putInt("id", mUsersList.get(position).getId());
         infoFragment.setArguments(bundle);
 
         mMainActivity.getSupportFragmentManager()

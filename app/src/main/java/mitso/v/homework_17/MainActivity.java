@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import mitso.v.homework_17.fragments.BaseFragment;
-import mitso.v.homework_17.fragments.UsersFragment;
+import mitso.v.homework_17.fragments.users_fragment.UsersFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
         updateFragment(new UsersFragment());
 
-//        Api.getTodos(new ConnectCallback() {
+//        Api.getAlbums(new ConnectCallback() {
 //            @Override
 //            public void onSuccess(Object object) {
 //                UserListResponse userListResponse = (UserListResponse) object;
-//                ArrayList<User> userArrayList = userListResponse.getTodos();
+//                ArrayList<User> userArrayList = userListResponse.getAlbums();
 //
 //                Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
 //
