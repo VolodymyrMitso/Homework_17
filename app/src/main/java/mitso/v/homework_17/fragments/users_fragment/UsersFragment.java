@@ -20,17 +20,18 @@ import mitso.v.homework_17.api.response.UserListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.UserInfoFragment;
 import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.Constants;
 import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class UsersFragment extends BaseFragment implements IUserHandler {
 
-    private final String LOG_TAG = "USER FRAGMENT";
+    private final String        LOG_TAG = Constants.USER_FRAGMENT_TAG;
 
     private RecyclerView        mRecyclerView_Users;
     private UserAdapter         mUserAdapter;
     private ArrayList<User>     mUsersList;
 
-    private boolean isHandlerSet;
+    private boolean             isHandlerSet;
 
     @Nullable
     @Override
@@ -73,6 +74,7 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
                 public void onFailure(Throwable throwable, String errorMessage) {
                     Log.d(LOG_TAG, "onFailure");
                     Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -91,11 +93,11 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
     }
 
     @Override
-    public void userOnClick(User user) {
+    public void userOnClick(User _user) {
 
         UserInfoFragment userInfoFragment = new UserInfoFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("user", user);
+        bundle.putSerializable(Constants.USER_BUNDLE_KEY, _user);
         userInfoFragment.setArguments(bundle);
 
         mMainActivity.getSupportFragmentManager()
@@ -103,6 +105,5 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
                     .replace(R.id.fl_FragmentContainer_AM, userInfoFragment)
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
-
     }
 }

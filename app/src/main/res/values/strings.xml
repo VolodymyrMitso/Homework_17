@@ -6,7 +6,14 @@
         Please turn on wi-fi or 3g/4g.\n
         Please restart app.
     </string>
+
     <string name="connecting">Connecting …</string>
     <string name="success">Request success</string>
     <string name="failure">Request failure</string>
+
+    <string name="error">
+        Something goes wrong.\n
+        Please restart app.
+    </string>
+
 </resources>

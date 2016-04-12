@@ -20,17 +20,20 @@ import mitso.v.homework_17.api.response.CommentListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.CommentInfoFragment;
 import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.Constants;
 import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class CommentFragment extends BaseFragment implements ICommentHandler {
 
-    private static final String LOG_TAG = "COMMENT FRAGMENT";
+    private final String        LOG_TAG = Constants.COMMENT_FRAGMENT_TAG;
 
-    private RecyclerView            mRecyclerView_Comment;
-    private CommentAdapter          mCommentAdapter;
-    private ArrayList<Comment>      mCommentList;
+    private RecyclerView        mRecyclerView_Comment;
+    private CommentAdapter      mCommentAdapter;
+    private ArrayList<Comment>  mCommentList;
 
-    private boolean isHandlerSet;
+    private boolean             isHandlerSet;
+
+    private Integer             postId;
 
     @Nullable
     @Override
@@ -39,48 +42,59 @@ public class CommentFragment extends BaseFragment implements ICommentHandler {
 
         isHandlerSet = false;
 
-        int id =  getArguments().getInt("post id");
+        try {
+            postId = getArguments().getInt(Constants.POST_ID_BUNDLE_KEY);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+        }
 
-        if (CheckConnection.checkConnection(mMainActivity)) {
+        if (postId != null && postId != 0) {
 
-            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+            if (CheckConnection.checkConnection(mMainActivity)) {
 
-            Api.getCommentsByPost(id, new ConnectCallback() {
-                @Override
-                public void onSuccess(Object object) {
+                Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
 
-                    CommentListResponse commentListResponse = (CommentListResponse) object;
-                    ArrayList<Comment> commentArrayList = commentListResponse.getComments();
-                    mCommentList = commentArrayList;
+                Api.getCommentsByPost(postId, new ConnectCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
 
-                    Log.e(LOG_TAG, String.valueOf(commentArrayList.size()));
-                    Log.e(LOG_TAG, commentArrayList.get(0).toString());
-                    Log.e(LOG_TAG, commentArrayList.get(commentArrayList.size() - 1).toString());
+                        CommentListResponse commentListResponse = (CommentListResponse) object;
+                        ArrayList<Comment> commentArrayList = commentListResponse.getComments();
+                        mCommentList = commentArrayList;
+
+                        Log.e(LOG_TAG, String.valueOf(commentArrayList.size()));
+                        Log.e(LOG_TAG, commentArrayList.get(0).toString());
+                        Log.e(LOG_TAG, commentArrayList.get(commentArrayList.size() - 1).toString());
 
 
-                    mRecyclerView_Comment = (RecyclerView) rootView.findViewById(R.id.rv_Comments_CF);
-                    mCommentAdapter = new CommentAdapter(mCommentList);
-                    mRecyclerView_Comment.setAdapter(mCommentAdapter);
-                    mRecyclerView_Comment.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                    mRecyclerView_Comment.addItemDecoration(new SpacingDecoration(spacingInPixels));
+                        mRecyclerView_Comment = (RecyclerView) rootView.findViewById(R.id.rv_Comments_CF);
+                        mCommentAdapter = new CommentAdapter(mCommentList);
+                        mRecyclerView_Comment.setAdapter(mCommentAdapter);
+                        mRecyclerView_Comment.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                        mRecyclerView_Comment.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                    mCommentAdapter.setCommentHandler(CommentFragment.this);
-                    isHandlerSet = true;
+                        mCommentAdapter.setCommentHandler(CommentFragment.this);
+                        isHandlerSet = true;
 
-                    Log.d(LOG_TAG, "onSuccess");
-                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
-                }
+                        Log.d(LOG_TAG, "onSuccess");
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
+                    }
 
-                @Override
-                public void onFailure(Throwable throwable, String errorMessage) {
-                    Log.d(LOG_TAG, "onFailure");
-                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Throwable throwable, String errorMessage) {
+                        Log.d(LOG_TAG, "onFailure");
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else
+                Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
 
         } else
-            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }
@@ -94,12 +108,10 @@ public class CommentFragment extends BaseFragment implements ICommentHandler {
     }
 
     @Override
-    public void commentOnClick(Comment comment) {
+    public void commentOnClick(Comment _comment) {
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("comment", comment);
-
-        Toast.makeText(mMainActivity, comment.toString(), Toast.LENGTH_SHORT).show();
+        bundle.putSerializable(Constants.COMMENT_BUNDLE_KEY, _comment);
         CommentInfoFragment commentInfoFragment = new CommentInfoFragment();
         commentInfoFragment.setArguments(bundle);
 

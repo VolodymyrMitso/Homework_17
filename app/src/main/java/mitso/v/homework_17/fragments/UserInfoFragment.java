@@ -14,37 +14,43 @@ import mitso.v.homework_17.api.models.user.User;
 import mitso.v.homework_17.fragments.album_fragment.AlbumFragment;
 import mitso.v.homework_17.fragments.post_fragment.PostFragment;
 import mitso.v.homework_17.fragments.todo_fragment.TodoFragment;
+import mitso.v.homework_17.fragments.utils.Constants;
 
 public class UserInfoFragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView mTextView_UserInfo;
+    private TextView    mTextView_UserInfo;
+    private Button      mButton_ToDo;
+    private Button      mButton_Album;
+    private Button      mButton_Post;
 
-    private Button mButton_ToDo;
-    private Button mButton_Album;
-    private Button mButton_Post;
-
-    User user;
+    private User        mUser;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.user_info_fragment, container, false);
 
-        user = (User) getArguments().getSerializable("user");
+        try {
+            mUser = (User) getArguments().getSerializable(Constants.USER_BUNDLE_KEY);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+        }
 
-        mTextView_UserInfo = (TextView) rootView.findViewById(R.id.tv_UserInfo_UIF);
-        mTextView_UserInfo.setText(user.toString());
+        if (mUser != null) {
 
-        Toast.makeText(mMainActivity, String.valueOf(user.getId()), Toast.LENGTH_SHORT).show();
+            mTextView_UserInfo = (TextView) rootView.findViewById(R.id.tv_UserInfo_UIF);
+            mTextView_UserInfo.setText(mUser.toString());
 
-        mButton_ToDo = (Button) rootView.findViewById(R.id.btn_Todo_UIF);
-        mButton_ToDo.setOnClickListener(this);
+            mButton_ToDo = (Button) rootView.findViewById(R.id.btn_Todo_UIF);
+            mButton_ToDo.setOnClickListener(this);
 
-        mButton_Album = (Button) rootView.findViewById(R.id.btn_Album_UIF);
-        mButton_Album.setOnClickListener(this);
+            mButton_Album = (Button) rootView.findViewById(R.id.btn_Album_UIF);
+            mButton_Album.setOnClickListener(this);
 
-        mButton_Post = (Button) rootView.findViewById(R.id.btn_Post_UIF);
-        mButton_Post.setOnClickListener(this);
+            mButton_Post = (Button) rootView.findViewById(R.id.btn_Post_UIF);
+            mButton_Post.setOnClickListener(this);
+        }
 
         return rootView;
     }
@@ -52,37 +58,41 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", user.getId());
+        if (mUser != null) {
 
-        switch (v.getId()) {
-            case R.id.btn_Todo_UIF:
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constants.USER_ID_BUNDLE_KEY, mUser.getId());
 
-                TodoFragment todoFragment = new TodoFragment();
-                todoFragment.setArguments(bundle);
-                updateFragment(todoFragment);
+            switch (v.getId()) {
+                case R.id.btn_Todo_UIF:
 
-                break;
-            case R.id.btn_Album_UIF:
+                    TodoFragment todoFragment = new TodoFragment();
+                    todoFragment.setArguments(bundle);
+                    updateFragment(todoFragment);
 
-                AlbumFragment albumFragment = new AlbumFragment();
-                albumFragment.setArguments(bundle);
-                updateFragment(albumFragment);
+                    break;
+                case R.id.btn_Album_UIF:
 
-                break;
-            case R.id.btn_Post_UIF:
+                    AlbumFragment albumFragment = new AlbumFragment();
+                    albumFragment.setArguments(bundle);
+                    updateFragment(albumFragment);
 
-                PostFragment postFragment = new PostFragment();
-                postFragment.setArguments(bundle);
-                updateFragment(postFragment);
+                    break;
+                case R.id.btn_Post_UIF:
 
-                Toast.makeText(mMainActivity, "aaa", Toast.LENGTH_SHORT).show();
+                    PostFragment postFragment = new PostFragment();
+                    postFragment.setArguments(bundle);
+                    updateFragment(postFragment);
 
-                break;
-        }
+                    break;
+            }
+
+        } else
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
     }
 
     private void updateFragment(BaseFragment baseFragment) {
+
         mMainActivity.getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fl_FragmentContainer_AM, baseFragment)

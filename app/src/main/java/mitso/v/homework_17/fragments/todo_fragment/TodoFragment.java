@@ -19,59 +19,73 @@ import mitso.v.homework_17.api.models.Todo;
 import mitso.v.homework_17.api.response.TodoListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.Constants;
 import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class TodoFragment extends BaseFragment {
 
-    private final String LOG_TAG = "TODO FRAGMENT";
+    private final String        LOG_TAG = Constants.TODO_FRAGMENT_TAG;
 
     private RecyclerView        mRecyclerView_Todo;
     private TodoAdapter         mTodoAdapter;
     private ArrayList<Todo>     mTodooList;
+
+    private Integer userId;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.todo_fragment, container, false);
 
-        int id =  getArguments().getInt("id");
+        try {
+            userId = getArguments().getInt(Constants.USER_ID_BUNDLE_KEY);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+        }
 
-        if (CheckConnection.checkConnection(mMainActivity)) {
+        if (userId != null && userId != 0) {
 
-            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+            if (CheckConnection.checkConnection(mMainActivity)) {
 
-            Api.getTodosByUser(id, new ConnectCallback() {
-                @Override
-                public void onSuccess(Object object) {
+                Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
 
-                    TodoListResponse todoListResponse = (TodoListResponse) object;
-                    ArrayList<Todo> todoArrayList = todoListResponse.getTodos();
-                    mTodooList = todoArrayList;
+                Api.getTodosByUser(userId, new ConnectCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
 
-                    Log.e(LOG_TAG, String.valueOf(todoArrayList.size()));
-                    Log.e(LOG_TAG, todoArrayList.get(0).toString());
-                    Log.e(LOG_TAG, todoArrayList.get(todoArrayList.size() - 1).toString());
+                        TodoListResponse todoListResponse = (TodoListResponse) object;
+                        ArrayList<Todo> todoArrayList = todoListResponse.getTodos();
+                        mTodooList = todoArrayList;
 
-                    mRecyclerView_Todo = (RecyclerView) rootView.findViewById(R.id.rv_Todos_TF);
-                    mTodoAdapter = new TodoAdapter(mTodooList);
-                    mRecyclerView_Todo.setAdapter(mTodoAdapter);
-                    mRecyclerView_Todo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                    mRecyclerView_Todo.addItemDecoration(new SpacingDecoration(spacingInPixels));
+                        Log.e(LOG_TAG, String.valueOf(todoArrayList.size()));
+                        Log.e(LOG_TAG, todoArrayList.get(0).toString());
+                        Log.e(LOG_TAG, todoArrayList.get(todoArrayList.size() - 1).toString());
 
-                    Log.d(LOG_TAG, "onSuccess");
-                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
-                }
+                        mRecyclerView_Todo = (RecyclerView) rootView.findViewById(R.id.rv_Todos_TF);
+                        mTodoAdapter = new TodoAdapter(mTodooList);
+                        mRecyclerView_Todo.setAdapter(mTodoAdapter);
+                        mRecyclerView_Todo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                        mRecyclerView_Todo.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                @Override
-                public void onFailure(Throwable throwable, String errorMessage) {
-                    Log.d(LOG_TAG, "onFailure");
-                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
-                }
-            });
+                        Log.d(LOG_TAG, "onSuccess");
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable, String errorMessage) {
+                        Log.d(LOG_TAG, "onFailure");
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else
+                Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
 
         } else
-            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }

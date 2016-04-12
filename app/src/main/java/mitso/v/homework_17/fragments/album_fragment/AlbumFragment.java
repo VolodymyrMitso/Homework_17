@@ -20,17 +20,20 @@ import mitso.v.homework_17.api.response.AlbumListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.photo_fragment.PhotoFragment;
 import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.Constants;
 import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class AlbumFragment extends BaseFragment implements IAlbumHandler {
 
-    private static final String LOG_TAG = "ALBUM FRAGMENT";
+    private final String        LOG_TAG = Constants.ALBUM_FRAGMENT_TAG;
 
     private RecyclerView        mRecyclerView_Album;
     private AlbumAdapter        mAlbumAdapter;
     private ArrayList<Album>    mAlbumList;
 
-    private boolean isHandlerSet;
+    private boolean             isHandlerSet;
+
+    private Integer userId;
 
     @Nullable
     @Override
@@ -39,48 +42,59 @@ public class AlbumFragment extends BaseFragment implements IAlbumHandler {
 
         isHandlerSet = false;
 
-        int id =  getArguments().getInt("id");
+        try {
+            userId = getArguments().getInt(Constants.USER_ID_BUNDLE_KEY);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+        }
 
-        if (CheckConnection.checkConnection(mMainActivity)) {
+        if (userId != null && userId != 0) {
 
-            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+            if (CheckConnection.checkConnection(mMainActivity)) {
 
-            Api.getAlbumsByUser(id, new ConnectCallback() {
-                @Override
-                public void onSuccess(Object object) {
+                Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
 
-                    AlbumListResponse albumListResponse = (AlbumListResponse) object;
-                    ArrayList<Album> albumArrayList = albumListResponse.getAlbums();
-                    mAlbumList = albumArrayList;
+                Api.getAlbumsByUser(userId, new ConnectCallback() {
+                    @Override
+                    public void onSuccess(Object object) {
 
-                    Log.e(LOG_TAG, String.valueOf(albumArrayList.size()));
-                    Log.e(LOG_TAG, albumArrayList.get(0).toString());
-                    Log.e(LOG_TAG, albumArrayList.get(albumArrayList.size() - 1).toString());
+                        AlbumListResponse albumListResponse = (AlbumListResponse) object;
+                        ArrayList<Album> albumArrayList = albumListResponse.getAlbums();
+                        mAlbumList = albumArrayList;
+
+                        Log.e(LOG_TAG, String.valueOf(albumArrayList.size()));
+                        Log.e(LOG_TAG, albumArrayList.get(0).toString());
+                        Log.e(LOG_TAG, albumArrayList.get(albumArrayList.size() - 1).toString());
 
 
-                    mRecyclerView_Album = (RecyclerView) rootView.findViewById(R.id.rv_Albums_AF);
-                    mAlbumAdapter = new AlbumAdapter(mAlbumList);
-                    mRecyclerView_Album.setAdapter(mAlbumAdapter);
-                    mRecyclerView_Album.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                    mRecyclerView_Album.addItemDecoration(new SpacingDecoration(spacingInPixels));
+                        mRecyclerView_Album = (RecyclerView) rootView.findViewById(R.id.rv_Albums_AF);
+                        mAlbumAdapter = new AlbumAdapter(mAlbumList);
+                        mRecyclerView_Album.setAdapter(mAlbumAdapter);
+                        mRecyclerView_Album.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                        mRecyclerView_Album.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                    mAlbumAdapter.setAlbumHandler(AlbumFragment.this);
-                    isHandlerSet = true;
+                        mAlbumAdapter.setAlbumHandler(AlbumFragment.this);
+                        isHandlerSet = true;
 
-                    Log.d(LOG_TAG, "onSuccess");
-                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
-                }
+                        Log.d(LOG_TAG, "onSuccess");
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
+                    }
 
-                @Override
-                public void onFailure(Throwable throwable, String errorMessage) {
-                    Log.d(LOG_TAG, "onFailure");
-                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Throwable throwable, String errorMessage) {
+                        Log.d(LOG_TAG, "onFailure");
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else
+                Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
 
         } else
-            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }
@@ -94,11 +108,10 @@ public class AlbumFragment extends BaseFragment implements IAlbumHandler {
     }
 
     @Override
-    public void albumOnClick(int id) {
+    public void albumOnClick(int _id) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt("album id", id);
-
+        bundle.putInt(Constants.ALBUM_ID_BUNDLE_KEY, _id);
         PhotoFragment photoFragment = new PhotoFragment();
         photoFragment.setArguments(bundle);
 
