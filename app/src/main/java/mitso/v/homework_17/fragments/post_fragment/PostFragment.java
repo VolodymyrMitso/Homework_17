@@ -24,16 +24,20 @@ import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class PostFragment extends BaseFragment implements IPostHandler {
 
-    private static final String LOG_TAG = "AlbumFragment";
+    private final String LOG_TAG = "POST FRAGMENT";
 
     private RecyclerView        mRecyclerView_Post;
     private PostAdapter         mPostAdapter;
     private ArrayList<Post>     mPostList;
 
+    private boolean isHandlerSet;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.post_fragment, container, false);
+
+        isHandlerSet = false;
 
         int id =  getArguments().getInt("id");
 
@@ -41,20 +45,19 @@ public class PostFragment extends BaseFragment implements IPostHandler {
 
         if (CheckConnection.checkConnection(mMainActivity)) {
 
+            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+
         Api.getPostsByUser(id, new ConnectCallback() {
             @Override
             public void onSuccess(Object object) {
-                Log.d(LOG_TAG, "onSuccess");
 
                 PostListResponse postListResponse = (PostListResponse) object;
                 ArrayList<Post> postArrayList = postListResponse.getPosts();
                 mPostList = postArrayList;
 
-                Log.e(LOG_TAG, "postArrayList.size:" + postArrayList.size());
-
-                Log.e(LOG_TAG, "postArrayList.first:" + postArrayList.get(0));
-                Log.e(LOG_TAG, "postArrayList.last:" + postArrayList.get(9));
-
+                Log.e(LOG_TAG, String.valueOf(postArrayList.size()));
+                Log.e(LOG_TAG, postArrayList.get(0).toString());
+                Log.e(LOG_TAG, postArrayList.get(postArrayList.size() - 1).toString());
 
                 mRecyclerView_Post = (RecyclerView) rootView.findViewById(R.id.rv_Posts_PF);
                 mPostAdapter = new PostAdapter(mPostList);
@@ -64,11 +67,16 @@ public class PostFragment extends BaseFragment implements IPostHandler {
                 mRecyclerView_Post.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
                 mPostAdapter.setPostHandler(PostFragment.this);
+                isHandlerSet = true;
+
+                Log.d(LOG_TAG, "onSuccess");
+                Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Throwable throwable, String errorMessage) {
-                Log.d(LOG_TAG, "onFailure=" + errorMessage);
+                Log.d(LOG_TAG, "onFailure");
+                Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -82,7 +90,7 @@ public class PostFragment extends BaseFragment implements IPostHandler {
     public void onPause() {
         super.onPause();
 
-        if (mPostAdapter.checkPostHandler())
+        if (isHandlerSet)
             mPostAdapter.releasePostHandler();
     }
 

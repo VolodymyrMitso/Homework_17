@@ -24,31 +24,36 @@ import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class UsersFragment extends BaseFragment implements IUserHandler {
 
-    private static final String LOG_TAG = "UsersFragment";
+    private final String LOG_TAG = "USER FRAGMENT";
 
     private RecyclerView        mRecyclerView_Users;
     private UserAdapter         mUserAdapter;
     private ArrayList<User>     mUsersList;
+
+    private boolean isHandlerSet;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.users_fragment, container, false);
 
+        isHandlerSet = false;
+
         if (CheckConnection.checkConnection(mMainActivity)) {
+
+            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
 
             Api.getUsers(new ConnectCallback() {
                 @Override
                 public void onSuccess(Object object) {
-                    Log.d(LOG_TAG, "onSuccess");
 
                     UserListResponse userListResponse = (UserListResponse) object;
                     ArrayList<User> userArrayList = userListResponse.getUsers();
                     mUsersList = userArrayList;
 
-                    Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
-                    for (int i = 0; i < userArrayList.size(); i++)
-                        Log.e(LOG_TAG, userArrayList.get(i).toString());
+                    Log.e(LOG_TAG, String.valueOf(userArrayList.size()));
+                    Log.e(LOG_TAG, userArrayList.get(0).toString());
+                    Log.e(LOG_TAG, userArrayList.get(userArrayList.size() - 1).toString());
 
                     mRecyclerView_Users = (RecyclerView) rootView.findViewById(R.id.rv_Users_UF);
                     mUserAdapter = new UserAdapter(mUsersList);
@@ -58,11 +63,16 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
                     mRecyclerView_Users.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
                     mUserAdapter.setUserHandler(UsersFragment.this);
+                    isHandlerSet = true;
+
+                    Log.d(LOG_TAG, "onSuccess");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(Throwable throwable, String errorMessage) {
-                    Log.d(LOG_TAG, "onFailure=" + errorMessage);
+                    Log.d(LOG_TAG, "onFailure");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -76,14 +86,12 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
     public void onPause() {
         super.onPause();
 
-        if (mUserAdapter.checkUserHandler())
+        if (isHandlerSet)
             mUserAdapter.releaseUserHandler();
     }
 
     @Override
     public void userOnClick(User user) {
-
-        Toast.makeText(mMainActivity, user.toString(), Toast.LENGTH_SHORT).show();
 
         UserInfoFragment userInfoFragment = new UserInfoFragment();
         Bundle bundle = new Bundle();

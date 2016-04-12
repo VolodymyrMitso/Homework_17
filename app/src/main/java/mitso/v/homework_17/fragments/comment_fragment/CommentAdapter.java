@@ -49,8 +49,4 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     public void releaseCommentHandler() {
         this.mCommentHandler = null;
     }
-
-    public boolean checkCommentHandler() {
-        return mCommentHandler != null;
-    }
 }

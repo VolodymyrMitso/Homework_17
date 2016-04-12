@@ -49,9 +49,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     public void releaseUserHandler() {
         this.mUserHandler = null;
     }
-
-    public boolean checkUserHandler() {
-        return mUserHandler != null;
-    }
 }
 

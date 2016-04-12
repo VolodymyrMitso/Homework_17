@@ -23,7 +23,7 @@ import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class TodoFragment extends BaseFragment {
 
-    private static final String LOG_TAG = "TODO FRAGMENT";
+    private final String LOG_TAG = "TODO FRAGMENT";
 
     private RecyclerView        mRecyclerView_Todo;
     private TodoAdapter         mTodoAdapter;
@@ -38,31 +38,37 @@ public class TodoFragment extends BaseFragment {
 
         if (CheckConnection.checkConnection(mMainActivity)) {
 
-        Api.getTodosByUser(id, new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                TodoListResponse todoListResponse = (TodoListResponse) object;
-                ArrayList<Todo> todoArrayList = todoListResponse.getTodos();
-                mTodooList = todoArrayList;
+            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
 
-                Log.e(LOG_TAG, "todoArrayList.size:" + todoArrayList.size());
+            Api.getTodosByUser(id, new ConnectCallback() {
+                @Override
+                public void onSuccess(Object object) {
 
-                Log.e(LOG_TAG, todoArrayList.get(0).toString());
-                Log.e(LOG_TAG, todoArrayList.get(19).toString());
+                    TodoListResponse todoListResponse = (TodoListResponse) object;
+                    ArrayList<Todo> todoArrayList = todoListResponse.getTodos();
+                    mTodooList = todoArrayList;
 
-                mRecyclerView_Todo = (RecyclerView) rootView.findViewById(R.id.rv_Todos_TF);
-                mTodoAdapter = new TodoAdapter(mTodooList);
-                mRecyclerView_Todo.setAdapter(mTodoAdapter);
-                mRecyclerView_Todo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                mRecyclerView_Todo.addItemDecoration(new SpacingDecoration(spacingInPixels));
-            }
+                    Log.e(LOG_TAG, String.valueOf(todoArrayList.size()));
+                    Log.e(LOG_TAG, todoArrayList.get(0).toString());
+                    Log.e(LOG_TAG, todoArrayList.get(todoArrayList.size() - 1).toString());
 
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
+                    mRecyclerView_Todo = (RecyclerView) rootView.findViewById(R.id.rv_Todos_TF);
+                    mTodoAdapter = new TodoAdapter(mTodooList);
+                    mRecyclerView_Todo.setAdapter(mTodoAdapter);
+                    mRecyclerView_Todo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                    mRecyclerView_Todo.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-            }
-        });
+                    Log.d(LOG_TAG, "onSuccess");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Throwable throwable, String errorMessage) {
+                    Log.d(LOG_TAG, "onFailure");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } else
             Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();

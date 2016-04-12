@@ -49,8 +49,4 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
     public void releaseAlbumHandler() {
         this.mAlbumHandler = null;
     }
-
-    public boolean checkAlbumHandler() {
-        return mAlbumHandler != null;
-    }
 }

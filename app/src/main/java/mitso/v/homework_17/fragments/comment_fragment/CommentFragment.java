@@ -24,51 +24,60 @@ import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class CommentFragment extends BaseFragment implements ICommentHandler {
 
-    private static final String LOG_TAG = "AlbumFragment";
+    private static final String LOG_TAG = "COMMENT FRAGMENT";
 
     private RecyclerView            mRecyclerView_Comment;
     private CommentAdapter          mCommentAdapter;
     private ArrayList<Comment>      mCommentList;
+
+    private boolean isHandlerSet;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.comment_fragment, container, false);
 
+        isHandlerSet = false;
+
         int id =  getArguments().getInt("post id");
 
         if (CheckConnection.checkConnection(mMainActivity)) {
 
-        Api.getCommentsByPost(id, new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                Log.d(LOG_TAG, "onSuccess");
+            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
 
-                CommentListResponse commentListResponse = (CommentListResponse) object;
-                ArrayList<Comment> commentArrayList = commentListResponse.getComments();
-                mCommentList = commentArrayList;
+            Api.getCommentsByPost(id, new ConnectCallback() {
+                @Override
+                public void onSuccess(Object object) {
 
-                Log.e(LOG_TAG, "commentArrayList.size:" + commentArrayList.size());
+                    CommentListResponse commentListResponse = (CommentListResponse) object;
+                    ArrayList<Comment> commentArrayList = commentListResponse.getComments();
+                    mCommentList = commentArrayList;
 
-                Log.e(LOG_TAG, "commentArrayList.first:" + commentArrayList.get(0));
-                Log.e(LOG_TAG, "commentArrayList.last:" + commentArrayList.get(4));
+                    Log.e(LOG_TAG, String.valueOf(commentArrayList.size()));
+                    Log.e(LOG_TAG, commentArrayList.get(0).toString());
+                    Log.e(LOG_TAG, commentArrayList.get(commentArrayList.size() - 1).toString());
 
 
-                mRecyclerView_Comment = (RecyclerView) rootView.findViewById(R.id.rv_Comments_CF);
-                mCommentAdapter = new CommentAdapter(mCommentList);
-                mRecyclerView_Comment.setAdapter(mCommentAdapter);
-                mRecyclerView_Comment.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                mRecyclerView_Comment.addItemDecoration(new SpacingDecoration(spacingInPixels));
+                    mRecyclerView_Comment = (RecyclerView) rootView.findViewById(R.id.rv_Comments_CF);
+                    mCommentAdapter = new CommentAdapter(mCommentList);
+                    mRecyclerView_Comment.setAdapter(mCommentAdapter);
+                    mRecyclerView_Comment.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                    mRecyclerView_Comment.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                mCommentAdapter.setCommentHandler(CommentFragment.this);
-            }
+                    mCommentAdapter.setCommentHandler(CommentFragment.this);
+                    isHandlerSet = true;
 
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
-                Log.d(LOG_TAG, "onFailure=" + errorMessage);
-            }
-        });
+                    Log.d(LOG_TAG, "onSuccess");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Throwable throwable, String errorMessage) {
+                    Log.d(LOG_TAG, "onFailure");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } else
             Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
@@ -80,7 +89,7 @@ public class CommentFragment extends BaseFragment implements ICommentHandler {
     public void onPause() {
         super.onPause();
 
-        if (mCommentAdapter.checkCommentHandler())
+        if (isHandlerSet)
             mCommentAdapter.releaseCommentHandler();
     }
 

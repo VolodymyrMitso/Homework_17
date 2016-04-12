@@ -57,7 +57,7 @@ public class Connect {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
-                        callback.onFailure(throwable,errorResponse.toString());
+                        callback.onFailure(throwable, errorResponse.toString());
                     }
 
                     @Override
@@ -65,9 +65,7 @@ public class Connect {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
                         callback.onFailure(throwable, errorResponse.toString());
                     }
-
                 }
-
         );
     }
 

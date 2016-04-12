@@ -49,8 +49,4 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public void releasePostHandler() {
         this.mPostHandler = null;
     }
-
-    public boolean checkPostHandler() {
-        return mPostHandler != null;
-    }
 }

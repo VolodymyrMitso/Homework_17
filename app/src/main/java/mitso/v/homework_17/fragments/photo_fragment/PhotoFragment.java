@@ -23,7 +23,7 @@ import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class PhotoFragment extends BaseFragment {
 
-    private static final String LOG_TAG = "PhotoFragment";
+    private static final String LOG_TAG = "PHOTO FRAGMENT";
 
     private RecyclerView        mRecyclerView_Photo;
     private PhotoAdapter        mPhotoAdapter;
@@ -38,34 +38,38 @@ public class PhotoFragment extends BaseFragment {
 
         if (CheckConnection.checkConnection(mMainActivity)) {
 
-        Api.getPhotosByAlbum(id, new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                Log.d(LOG_TAG, "onSuccess");
+            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
 
-                PhotoListResponse photoListResponse = (PhotoListResponse) object;
-                ArrayList<Photo> photoArrayList = photoListResponse.getPhotos();
-                mPhotoList = photoArrayList;
+            Api.getPhotosByAlbum(id, new ConnectCallback() {
+                @Override
+                public void onSuccess(Object object) {
 
-                Log.e(LOG_TAG, "photoArrayList.size:" + photoArrayList.size());
+                    PhotoListResponse photoListResponse = (PhotoListResponse) object;
+                    ArrayList<Photo> photoArrayList = photoListResponse.getPhotos();
+                    mPhotoList = photoArrayList;
 
-                Log.e(LOG_TAG, "photoArrayList.first:" + photoArrayList.get(0));
-                Log.e(LOG_TAG, "photoArrayList.last:" + photoArrayList.get(49));
+                    Log.e(LOG_TAG, String.valueOf(photoArrayList.size()));
+                    Log.e(LOG_TAG, photoArrayList.get(0).toString());
+                    Log.e(LOG_TAG, photoArrayList.get(photoArrayList.size() - 1).toString());
 
 
-                mRecyclerView_Photo = (RecyclerView) rootView.findViewById(R.id.rv_Photos_PF);
-                mPhotoAdapter = new PhotoAdapter(mPhotoList);
-                mRecyclerView_Photo.setAdapter(mPhotoAdapter);
-                mRecyclerView_Photo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                mRecyclerView_Photo.addItemDecoration(new SpacingDecoration(spacingInPixels));
-            }
+                    mRecyclerView_Photo = (RecyclerView) rootView.findViewById(R.id.rv_Photos_PF);
+                    mPhotoAdapter = new PhotoAdapter(mPhotoList);
+                    mRecyclerView_Photo.setAdapter(mPhotoAdapter);
+                    mRecyclerView_Photo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                    mRecyclerView_Photo.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
-                Log.d(LOG_TAG, "onFailure=" + errorMessage);
-            }
-        });
+                    Log.d(LOG_TAG, "onSuccess");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Throwable throwable, String errorMessage) {
+                    Log.d(LOG_TAG, "onFailure");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } else
             Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();

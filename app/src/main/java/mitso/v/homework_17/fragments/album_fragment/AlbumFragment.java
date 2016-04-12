@@ -24,34 +24,38 @@ import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class AlbumFragment extends BaseFragment implements IAlbumHandler {
 
-    private static final String LOG_TAG = "AlbumFragment";
+    private static final String LOG_TAG = "ALBUM FRAGMENT";
 
     private RecyclerView        mRecyclerView_Album;
     private AlbumAdapter        mAlbumAdapter;
     private ArrayList<Album>    mAlbumList;
+
+    private boolean isHandlerSet;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.album_fragment, container, false);
 
+        isHandlerSet = false;
+
         int id =  getArguments().getInt("id");
 
         if (CheckConnection.checkConnection(mMainActivity)) {
 
+            Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+
             Api.getAlbumsByUser(id, new ConnectCallback() {
                 @Override
                 public void onSuccess(Object object) {
-                    Log.d(LOG_TAG, "onSuccess");
 
                     AlbumListResponse albumListResponse = (AlbumListResponse) object;
                     ArrayList<Album> albumArrayList = albumListResponse.getAlbums();
                     mAlbumList = albumArrayList;
 
-                    Log.e(LOG_TAG, "albumArrayList.size:" + albumArrayList.size());
-
-                    Log.e(LOG_TAG, "albumArrayList.first:" + albumArrayList.get(0));
-                    Log.e(LOG_TAG, "albumArrayList.last:" + albumArrayList.get(9));
+                    Log.e(LOG_TAG, String.valueOf(albumArrayList.size()));
+                    Log.e(LOG_TAG, albumArrayList.get(0).toString());
+                    Log.e(LOG_TAG, albumArrayList.get(albumArrayList.size() - 1).toString());
 
 
                     mRecyclerView_Album = (RecyclerView) rootView.findViewById(R.id.rv_Albums_AF);
@@ -62,11 +66,16 @@ public class AlbumFragment extends BaseFragment implements IAlbumHandler {
                     mRecyclerView_Album.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
                     mAlbumAdapter.setAlbumHandler(AlbumFragment.this);
+                    isHandlerSet = true;
+
+                    Log.d(LOG_TAG, "onSuccess");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(Throwable throwable, String errorMessage) {
-                    Log.d(LOG_TAG, "onFailure=" + errorMessage);
+                    Log.d(LOG_TAG, "onFailure");
+                    Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -80,7 +89,7 @@ public class AlbumFragment extends BaseFragment implements IAlbumHandler {
     public void onPause() {
         super.onPause();
 
-        if (mAlbumAdapter.checkAlbumHandler())
+        if (isHandlerSet)
             mAlbumAdapter.releaseAlbumHandler();
     }
 
