@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/d_size_10dp"
-        android:background="@drawable/sh"
+        android:background="@drawable/shape"
         android:padding="@dimen/d_size_10dp"
         android:textColor="@color/c_text"
-        android:textSize="13sp" />
+        android:textSize="@dimen/d_text_13sp" />
 </LinearLayout>

@@ -37,6 +37,9 @@ public class PhotoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.photo_frgament, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_photo_list));
+
         try {
             albumId = getArguments().getInt(Constants.ALBUM_ID_BUNDLE_KEY);
         } catch (Exception e) {

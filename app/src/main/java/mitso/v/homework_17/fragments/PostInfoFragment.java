@@ -26,6 +26,9 @@ public class PostInfoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.post_info_fragment, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_post_info));
+
         try {
             mPost = (Post) getArguments().getSerializable(Constants.POST_BUNDLE_KEY);
         } catch (Exception e) {

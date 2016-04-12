@@ -40,6 +40,9 @@ public class CommentFragment extends BaseFragment implements ICommentHandler {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.comment_fragment, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_comment_list));
+
         isHandlerSet = false;
 
         try {

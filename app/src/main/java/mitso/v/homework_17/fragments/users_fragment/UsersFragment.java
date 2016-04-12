@@ -38,6 +38,9 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.users_fragment, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_user_list));
+
         isHandlerSet = false;
 
         if (CheckConnection.checkConnection(mMainActivity)) {

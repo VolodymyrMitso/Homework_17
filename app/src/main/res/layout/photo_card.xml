@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/sh"
+    android:background="@drawable/shape"
     android:orientation="vertical">
 
     <TextView
@@ -14,8 +14,7 @@
         android:clickable="true"
         android:gravity="center"
         android:textColor="@color/c_text"
-        android:textSize="13sp"
-        android:text="@string/s_photo_title"
+        android:textSize="@dimen/d_text_13sp"
         android:layout_marginLeft="@dimen/d_size_5dp"
         android:layout_marginRight="@dimen/d_size_5dp"/>
 
@@ -27,8 +26,7 @@
         android:clickable="true"
         android:gravity="center"
         android:textColor="@color/c_text"
-        android:textSize="13sp"
-        android:text="@string/s_photo_url"
+        android:textSize="@dimen/d_text_13sp"
         android:layout_marginLeft="@dimen/d_size_5dp"
         android:layout_marginRight="@dimen/d_size_5dp"/>
 

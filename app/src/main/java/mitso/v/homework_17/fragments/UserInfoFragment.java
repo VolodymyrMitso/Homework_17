@@ -30,6 +30,9 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.user_info_fragment, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_user_info));
+
         try {
             mUser = (User) getArguments().getSerializable(Constants.USER_BUNDLE_KEY);
         } catch (Exception e) {

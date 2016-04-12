@@ -40,6 +40,9 @@ public class AlbumFragment extends BaseFragment implements IAlbumHandler {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.album_fragment, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_album_list));
+
         isHandlerSet = false;
 
         try {

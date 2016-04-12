@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Homework_17</string>
+
+    <string name="s_app_name">Homework_17</string>
 
     <string name="s_no_connection">
         There is no connection.\n
@@ -15,12 +16,20 @@
         Something goes wrong.\n
         Please restart app.
     </string>
+    
+    <string name="s_user_list">USER LIST : name</string>
+    <string name="s_user_info">USER : all info</string>
+    <string name="s_todo_list">TODO LIST : all info</string>
+    <string name="s_album_list">ALBUM LIST : title</string>
+    <string name="s_photo_list">PHOTO LIST : title, url</string>
+    <string name="s_post_list">POST LIST : title</string>
+    <string name="s_post_info">POST : all info</string>
+    <string name="s_comment_list">COMMENT LIST : email</string>
+    <string name="s_comment_info">COMMENT : all info</string>
 
-    <string name="s_user_name">"USER NAME: "</string>
-    <string name="s_album_title">"ALBUM TITLE: "</string>
-    <string name="s_photo_title">"PHOTO TITLE: "</string>
-    <string name="s_photo_url">"PHOTO URL: "</string>
-    <string name="s_post_title">"POST TITLE: "</string>
-    <string name="s_comment_email">"COMMENT EMAIL: "</string>
+    <string name="s_todo">TODOs</string>
+    <string name="s_album">ALBUMs</string>
+    <string name="s_post">POSTs</string>
+    <string name="s_comment">COMMENTs</string>
 
 </resources>

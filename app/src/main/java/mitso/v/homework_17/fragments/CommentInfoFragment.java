@@ -23,6 +23,9 @@ public class CommentInfoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.comment_info_fragment, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_comment_info));
+
         try {
             mComment = (Comment) getArguments().getSerializable(Constants.COMMENT_BUNDLE_KEY);
         } catch (Exception e) {

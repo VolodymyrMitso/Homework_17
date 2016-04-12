@@ -4,7 +4,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/sh"
+    android:background="@drawable/shape"
     android:orientation="vertical">
 
     <TextView
@@ -14,6 +14,6 @@
         android:layout_margin="@dimen/d_size_5dp"
         android:clickable="true"
         android:textColor="@color/c_text"
-        android:textSize="13sp" />
+        android:textSize="@dimen/d_text_13sp" />
 
 </LinearLayout>

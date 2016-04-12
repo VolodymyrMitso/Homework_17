@@ -40,6 +40,9 @@ public class PostFragment extends BaseFragment implements IPostHandler {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.post_fragment, container, false);
 
+        if (mMainActivity.getSupportActionBar() != null)
+            mMainActivity.getSupportActionBar().setTitle(mMainActivity.getResources().getString(R.string.s_post_list));
+
         isHandlerSet = false;
 
         try {
