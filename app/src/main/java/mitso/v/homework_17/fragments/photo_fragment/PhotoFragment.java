@@ -65,7 +65,7 @@ public class PhotoFragment extends BaseFragment {
                         Log.e(LOG_TAG, photoArrayList.get(0).toString());
                         Log.e(LOG_TAG, photoArrayList.get(photoArrayList.size() - 1).toString());
 
-                        mRecyclerView_Photo = (RecyclerView) rootView.findViewById(R.id.rv_Photos_PF);
+                        mRecyclerView_Photo = (RecyclerView) rootView.findViewById(R.id.rv_Photos_FF);
                         mPhotoAdapter = new PhotoAdapter(mPhotoList);
                         mRecyclerView_Photo.setAdapter(mPhotoAdapter);
                         mRecyclerView_Photo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
