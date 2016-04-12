@@ -12,7 +12,7 @@
     <string name="s_failure">Request failure</string>
 
     <string name="s_error">
-        Something goes wrong.\n
+        Something went wrong.\n
         Please restart app.
     </string>
     

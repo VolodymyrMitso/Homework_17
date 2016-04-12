@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 import mitso.v.homework_17.R;
@@ -72,14 +74,16 @@ public class PhotoFragment extends BaseFragment {
                         int spacingInPixels = mMainActivity.getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
                         mRecyclerView_Photo.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                        Log.d(LOG_TAG, "onSuccess");
+                        Log.e(LOG_TAG, "onSuccess");
                         Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_success), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Throwable throwable) {
-                        Log.d(LOG_TAG, "onFailure");
-                        throwable.printStackTrace();
+                        StringWriter errors = new StringWriter();
+                        throwable.printStackTrace(new PrintWriter(errors));
+                        Log.e(LOG_TAG, "onFailure");
+                        Log.e(LOG_TAG, errors.toString());
                         Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_failure), Toast.LENGTH_SHORT).show();
                         Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
                     }
