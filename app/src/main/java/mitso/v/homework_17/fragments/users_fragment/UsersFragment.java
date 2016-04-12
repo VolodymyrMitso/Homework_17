@@ -76,6 +76,7 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
                 @Override
                 public void onFailure(Throwable throwable) {
                     Log.d(LOG_TAG, "onFailure");
+                    throwable.printStackTrace();
                     Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_failure), Toast.LENGTH_SHORT).show();
                     Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
                 }

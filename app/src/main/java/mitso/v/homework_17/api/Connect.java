@@ -18,8 +18,7 @@ import mitso.v.homework_17.api.interfaces.ModelResponse;
 
 public class Connect {
 
-    public static final int PARSER_GSON = 8;
-    public static final int PARSER_JSON = 9;
+    public static final int PARSER_JSON = 999;
     private static final String LOG_TAG = Connect.class.getName();
 
     private static Connect _instance;

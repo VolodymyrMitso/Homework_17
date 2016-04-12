@@ -17,10 +17,6 @@ public class Api {
         Connect.getInstance().getRequest(ApiConstants.USERS, new UserListResponse(), callback);
     }
 
-//    public static void getUser(int id, ConnectCallback callback) {
-//        Connect.getInstance().getRequest(ApiConstants.USER_ID + id, new User(), callback);
-//    }
-
     public static void getTodosByUser(int userId, ConnectCallback callback) {
         RequestParams requestParams = new RequestParams(ApiConstants.TODO_USER_ID_KEY, userId);
         Connect.getInstance().getRequestWithParam(ApiConstants.TODOS, requestParams, new TodoListResponse(), callback);
