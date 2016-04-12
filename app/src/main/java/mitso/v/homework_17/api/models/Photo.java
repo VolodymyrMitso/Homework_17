@@ -96,12 +96,12 @@ public class Photo implements ModelResponse, Serializable, GsonModel {
 
     @Override
     public String toString() {
-        return  "\n----- Photo Info -----" +
-                "\n--- albumId = " + albumId +
-                "\n--- id = " + id +
-                "\n--- title = " + title +
-                "\n--- url = " + url +
-                "\n--- thumbnailUrl = " + thumbnailUrl + "\n";
+        return  "----- PHOTO INFO -----\n" +
+                "----- albumId = " + albumId + "\n" +
+                "----- id = " + id + "\n" +
+                "----- title = " + title + "\n" +
+                "----- url = " + url + "\n" +
+                "----- thumbnailUrl = " + thumbnailUrl;
 
     }
 }

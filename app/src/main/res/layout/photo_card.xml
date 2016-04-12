@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sh"
@@ -16,7 +15,7 @@
         android:gravity="center"
         android:textColor="@color/c_text"
         android:textSize="13sp"
-        tools:text="PhotoTitle"
+        android:text="@string/s_photo_title"
         android:layout_marginLeft="@dimen/d_size_5dp"
         android:layout_marginRight="@dimen/d_size_5dp"/>
 
@@ -29,7 +28,7 @@
         android:gravity="center"
         android:textColor="@color/c_text"
         android:textSize="13sp"
-        tools:text="PhotoUrl"
+        android:text="@string/s_photo_url"
         android:layout_marginLeft="@dimen/d_size_5dp"
         android:layout_marginRight="@dimen/d_size_5dp"/>
 

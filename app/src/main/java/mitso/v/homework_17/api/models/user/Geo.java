@@ -25,7 +25,7 @@ public class Geo implements Serializable {
 
     @Override
     public String toString() {
-        return  "\n---------- lat = " + lat +
-                "\n---------- lng = " + lng;
+        return  "\n--------------- lat = " + lat +
+                "\n--------------- lng = " + lng;
     }
 }

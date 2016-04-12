@@ -34,7 +34,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
             mUser = (User) getArguments().getSerializable(Constants.USER_BUNDLE_KEY);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
         }
 
         if (mUser != null) {
@@ -88,7 +88,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
             }
 
         } else
-            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
     }
 
     private void updateFragment(BaseFragment baseFragment) {

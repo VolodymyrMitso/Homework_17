@@ -52,10 +52,10 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return  "\n----- street = " + street +
-                "\n----- suite = " + suite +
-                "\n----- city = " + city +
-                "\n----- zipcode = " + zipcode +
-                "\n----- geo = " + geo;
+        return  "\n---------- street = " + street +
+                "\n---------- suite = " + suite +
+                "\n---------- city = " + city +
+                "\n---------- zipcode = " + zipcode +
+                "\n---------- geo = " + geo;
     }
 }

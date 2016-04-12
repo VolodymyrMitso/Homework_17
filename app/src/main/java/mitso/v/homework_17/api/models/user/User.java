@@ -167,14 +167,14 @@ public class User implements ModelResponse, Serializable, GsonModel {
 
     @Override
     public String toString() {
-        return "----- User Info -----\n" +
-                "id = " + id + "\n" +
-                "name = " + name + "\n" +
-                "username = " + username + "\n" +
-                "email = " + email + "\n" +
-                "address = " + address + "\n" +
-                "phone = " + phone + "\n" +
-                "website = " + website + "\n" +
-                "company = " + company + "\n";
+        return  "----- USER INFO -----\n" +
+                "----- id = " + id + "\n" +
+                "----- name = " + name + "\n" +
+                "----- username = " + username + "\n" +
+                "----- email = " + email + "\n" +
+                "----- address = " + address + "\n" +
+                "----- phone = " + phone + "\n" +
+                "----- website = " + website + "\n" +
+                "----- company = " + company;
     }
 }

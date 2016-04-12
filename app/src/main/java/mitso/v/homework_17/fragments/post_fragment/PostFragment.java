@@ -46,14 +46,14 @@ public class PostFragment extends BaseFragment implements IPostHandler {
             userId = getArguments().getInt(Constants.USER_ID_BUNDLE_KEY);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
         }
 
         if (userId != null && userId != 0) {
 
             if (CheckConnection.checkConnection(mMainActivity)) {
 
-                Toast.makeText(mMainActivity, getResources().getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_connecting), Toast.LENGTH_SHORT).show();
 
                 Api.getPostsByUser(userId, new ConnectCallback() {
                     @Override
@@ -71,29 +71,29 @@ public class PostFragment extends BaseFragment implements IPostHandler {
                         mPostAdapter = new PostAdapter(mPostList);
                         mRecyclerView_Post.setAdapter(mPostAdapter);
                         mRecyclerView_Post.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                        int spacingInPixels = mMainActivity.getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
                         mRecyclerView_Post.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
                         mPostAdapter.setPostHandler(PostFragment.this);
                         isHandlerSet = true;
 
                         Log.d(LOG_TAG, "onSuccess");
-                        Toast.makeText(mMainActivity, getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_success), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(Throwable throwable, String errorMessage) {
+                    public void onFailure(Throwable throwable) {
                         Log.d(LOG_TAG, "onFailure");
-                        Toast.makeText(mMainActivity, getResources().getString(R.string.failure), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_failure), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
                     }
                 });
 
             } else
-                Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_no_connection), Toast.LENGTH_SHORT).show();
 
         } else
-            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, mMainActivity.getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }

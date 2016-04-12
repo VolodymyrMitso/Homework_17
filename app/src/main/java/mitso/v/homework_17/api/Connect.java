@@ -42,7 +42,7 @@ public class Connect {
 
         Log.d(LOG_TAG, ApiConstants.URL_SERVER + url);
 
-        client.get(ApiConstants.URL_SERVER+url,requestParams,new JsonHttpResponseHandler()
+        client.get(ApiConstants.URL_SERVER + url, requestParams,new JsonHttpResponseHandler()
                 {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -57,22 +57,23 @@ public class Connect {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
-                        callback.onFailure(throwable, errorResponse.toString());
+                        callback.onFailure(throwable);
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
-                        callback.onFailure(throwable, errorResponse.toString());
+                        callback.onFailure(throwable);
                     }
                 }
         );
     }
 
     private void parseData(Object jsonObject, ModelResponse modelObject, ConnectCallback callback) {
-        if (null != modelObject) {
-            try {
 
+        if (null != modelObject) {
+
+            try {
                 modelObject.configure(jsonObject);
                 callback.onSuccess(modelObject);
             } catch (JSONException e) {
@@ -83,12 +84,9 @@ public class Connect {
         }
     }
 
-
-
     public int getParser() {
         return mParser;
     }
-
 
     public void getRequest(String url,final ModelResponse modelResponse , final ConnectCallback callback) {
         getRequestWithParam(url, null, modelResponse, callback);

@@ -83,9 +83,10 @@ public class Todo implements ModelResponse, Serializable, GsonModel {
 
     @Override
     public String toString() {
-        return  "userId = " + userId + "\n" +
-                "id = " + id + "\n" +
-                "title = " + title + "\n" +
-                "completed = " + completed;
+        return  "----- TODO INFO -----\n" +
+                "----- userId = " + userId + "\n" +
+                "----- id = " + id + "\n" +
+                "----- title = " + title + "\n" +
+                "----- completed = " + completed;
     }
 }

@@ -1,19 +1,26 @@
 <resources>
     <string name="app_name">Homework_17</string>
 
-    <string name="no_connection">
+    <string name="s_no_connection">
         There is no connection.\n
         Please turn on wi-fi or 3g/4g.\n
         Please restart app.
     </string>
 
-    <string name="connecting">Connecting …</string>
-    <string name="success">Request success</string>
-    <string name="failure">Request failure</string>
+    <string name="s_connecting">Connecting …</string>
+    <string name="s_success">Request success</string>
+    <string name="s_failure">Request failure</string>
 
-    <string name="error">
+    <string name="s_error">
         Something goes wrong.\n
         Please restart app.
     </string>
+
+    <string name="s_user_name">"USER NAME: "</string>
+    <string name="s_album_title">"ALBUM TITLE: "</string>
+    <string name="s_photo_title">"PHOTO TITLE: "</string>
+    <string name="s_photo_url">"PHOTO URL: "</string>
+    <string name="s_post_title">"POST TITLE: "</string>
+    <string name="s_comment_email">"COMMENT EMAIL: "</string>
 
 </resources>

@@ -70,9 +70,9 @@ public class Album implements ModelResponse, Serializable, GsonModel {
 
     @Override
     public String toString() {
-        return  "\n----- Album Info -----" +
-                "\n--- userId = " + userId +
-                "\n--- id = " + id +
-                "\n--- title = " + title + "\n";
+        return  "----- ALBUM INFO -----\n" +
+                "----- userId = " + userId + "\n" +
+                "----- id = " + id + "\n" +
+                "----- title = " + title;
     }
 }

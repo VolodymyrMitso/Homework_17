@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sh"
@@ -16,6 +15,6 @@
         android:gravity="center"
         android:textColor="@color/c_text"
         android:textSize="17sp"
-        tools:text="AlbumTitle" />
+        android:text="@string/s_album_title"/>
 
 </LinearLayout>

@@ -34,8 +34,8 @@ public class Company implements Serializable {
 
     @Override
     public String toString() {
-        return  "\n----- name = " + name +
-                "\n----- catchPhrase = " + catchPhrase +
-                "\n----- bs = " + bs;
+        return  "\n---------- name = " + name +
+                "\n---------- catchPhrase = " + catchPhrase +
+                "\n---------- bs = " + bs;
     }
 }

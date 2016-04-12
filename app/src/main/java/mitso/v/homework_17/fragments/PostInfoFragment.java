@@ -30,7 +30,7 @@ public class PostInfoFragment extends BaseFragment {
             mPost = (Post) getArguments().getSerializable(Constants.POST_BUNDLE_KEY);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
         }
 
         if (mPost != null) {
@@ -56,7 +56,7 @@ public class PostInfoFragment extends BaseFragment {
                 }
             });
         } else
-            Toast.makeText(mMainActivity, getResources().getString(R.string.error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getResources().getString(R.string.s_error), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }
