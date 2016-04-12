@@ -8,11 +8,15 @@ import mitso.v.homework_17.R;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView mTextView_CommentEmail;
+    private TextView mTextView_CommentEmail;
 
     public CommentViewHolder(View itemView) {
         super(itemView);
 
         mTextView_CommentEmail = (TextView) itemView.findViewById(R.id.tv_CommentEmail_CC);
+    }
+
+    public TextView getTextView_CommentEmail() {
+        return mTextView_CommentEmail;
     }
 }

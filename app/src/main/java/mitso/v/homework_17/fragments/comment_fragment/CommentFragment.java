@@ -19,7 +19,8 @@ import mitso.v.homework_17.api.models.Comment;
 import mitso.v.homework_17.api.response.CommentListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.CommentInfoFragment;
-import mitso.v.homework_17.fragments.album_fragment.SpacingDecoration;
+import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class CommentFragment extends BaseFragment implements ICommentHandler {
 
@@ -35,6 +36,8 @@ public class CommentFragment extends BaseFragment implements ICommentHandler {
         final View rootView = inflater.inflate(R.layout.comment_fragment, container, false);
 
         int id =  getArguments().getInt("post id");
+
+        if (CheckConnection.checkConnection(mMainActivity)) {
 
         Api.getCommentsByPost(id, new ConnectCallback() {
             @Override
@@ -58,7 +61,7 @@ public class CommentFragment extends BaseFragment implements ICommentHandler {
                 int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
                 mRecyclerView_Comment.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                mCommentAdapter.setAlbumHandler(CommentFragment.this);
+                mCommentAdapter.setCommentHandler(CommentFragment.this);
             }
 
             @Override
@@ -67,7 +70,18 @@ public class CommentFragment extends BaseFragment implements ICommentHandler {
             }
         });
 
+        } else
+            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
+
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mCommentAdapter.checkCommentHandler())
+            mCommentAdapter.releaseCommentHandler();
     }
 
     @Override

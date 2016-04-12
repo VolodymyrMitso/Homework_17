@@ -8,11 +8,15 @@ import mitso.v.homework_17.R;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView mTextView_PostTitle;
+    private TextView mTextView_PostTitle;
 
     public PostViewHolder(View itemView) {
         super(itemView);
 
         mTextView_PostTitle = (TextView) itemView.findViewById(R.id.tv_PostTitle_PC);
+    }
+
+    public TextView getTextView_PostTitle() {
+        return mTextView_PostTitle;
     }
 }

@@ -23,8 +23,6 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
     private Button mButton_Album;
     private Button mButton_Post;
 
-//    private int id;
-
     User user;
 
     @Nullable
@@ -32,9 +30,6 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.user_info_fragment, container, false);
 
-//        String string =  getArguments().getString("info");
-//        int id =  getArguments().getInt("id");
-//        this.id = id;
         user = (User) getArguments().getSerializable("user");
 
         mTextView_UserInfo = (TextView) rootView.findViewById(R.id.tv_UserInfo_UIF);

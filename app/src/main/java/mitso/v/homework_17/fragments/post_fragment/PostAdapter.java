@@ -22,11 +22,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public void onBindViewHolder(PostViewHolder holder, final int position) {
         final Post post = mPostList.get(position);
-        holder.mTextView_PostTitle.setText(post.getTitle());
-        holder.mTextView_PostTitle.setOnClickListener(new View.OnClickListener() {
+        holder.getTextView_PostTitle().setText(post.getTitle());
+        holder.getTextView_PostTitle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPostHandler.postOnClick(position);
+                mPostHandler.postOnClick(post);
             }
         });
     }
@@ -42,11 +42,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         return mPostList.size();
     }
 
-    public void setAlbumHandler(IPostHandler postHandler) {
+    public void setPostHandler(IPostHandler postHandler) {
         this.mPostHandler = postHandler;
     }
 
-    public void releaseIUserHAndler() {
+    public void releasePostHandler() {
         this.mPostHandler = null;
+    }
+
+    public boolean checkPostHandler() {
+        return mPostHandler != null;
     }
 }

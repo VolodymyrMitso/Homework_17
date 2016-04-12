@@ -22,7 +22,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
     public void onBindViewHolder(TodoViewHolder holder, final int position) {
         final Todo todo = mTodoList.get(position);
 
-        holder.mTextView_TodoInfo.setText(todo.toString());
+        holder.getTextView_TodoInfo().setText(todo.toString());
     }
 
     @Override

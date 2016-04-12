@@ -8,11 +8,15 @@ import mitso.v.homework_17.R;
 
 public class TodoViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView mTextView_TodoInfo;
+    private TextView mTextView_TodoInfo;
 
     public TodoViewHolder(View itemView) {
         super(itemView);
 
         mTextView_TodoInfo = (TextView) itemView.findViewById(R.id.tv_TodoInfo_TC);
+    }
+
+    public TextView getTextView_TodoInfo() {
+        return mTextView_TodoInfo;
     }
 }

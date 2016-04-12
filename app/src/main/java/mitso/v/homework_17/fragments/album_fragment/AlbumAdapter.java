@@ -22,8 +22,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
     @Override
     public void onBindViewHolder(AlbumViewHolder holder, final int position) {
         final Album album = mAlbumList.get(position);
-        holder.mTextView_AlbumTitle.setText(album.getTitle());
-        holder.mTextView_AlbumTitle.setOnClickListener(new View.OnClickListener() {
+        holder.getTextView_AlbumTitle().setText(album.getTitle());
+        holder.getTextView_AlbumTitle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAlbumHandler.albumOnClick(album.getId());
@@ -46,7 +46,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
         this.mAlbumHandler = albumHandler;
     }
 
-    public void releaseIUserHAndler() {
+    public void releaseAlbumHandler() {
         this.mAlbumHandler = null;
+    }
+
+    public boolean checkAlbumHandler() {
+        return mAlbumHandler != null;
     }
 }

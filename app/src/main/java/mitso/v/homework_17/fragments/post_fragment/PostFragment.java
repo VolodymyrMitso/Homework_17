@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,8 @@ import mitso.v.homework_17.api.models.Post;
 import mitso.v.homework_17.api.response.PostListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.PostInfoFragment;
-import mitso.v.homework_17.fragments.album_fragment.SpacingDecoration;
+import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class PostFragment extends BaseFragment implements IPostHandler {
 
@@ -36,6 +38,8 @@ public class PostFragment extends BaseFragment implements IPostHandler {
         int id =  getArguments().getInt("id");
 
         Log.e(LOG_TAG, "id: " + String.valueOf(id));
+
+        if (CheckConnection.checkConnection(mMainActivity)) {
 
         Api.getPostsByUser(id, new ConnectCallback() {
             @Override
@@ -59,7 +63,7 @@ public class PostFragment extends BaseFragment implements IPostHandler {
                 int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
                 mRecyclerView_Post.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                mPostAdapter.setAlbumHandler(PostFragment.this);
+                mPostAdapter.setPostHandler(PostFragment.this);
             }
 
             @Override
@@ -68,15 +72,26 @@ public class PostFragment extends BaseFragment implements IPostHandler {
             }
         });
 
+        } else
+            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
+
         return rootView;
     }
 
     @Override
-    public void postOnClick(int position) {
+    public void onPause() {
+        super.onPause();
+
+        if (mPostAdapter.checkPostHandler())
+            mPostAdapter.releasePostHandler();
+    }
+
+    @Override
+    public void postOnClick(Post post) {
 
         PostInfoFragment postInfoFragment = new PostInfoFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("post", mPostList.get(position));
+        bundle.putSerializable("post", post);
         postInfoFragment.setArguments(bundle);
 
         mMainActivity.getSupportFragmentManager()

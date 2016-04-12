@@ -22,11 +22,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     @Override
     public void onBindViewHolder(UserViewHolder holder, final int position) {
         final User user = mUserList.get(position);
-        holder.mTextView_UserName.setText(user.getName());
-        holder.mTextView_UserName.setOnClickListener(new View.OnClickListener() {
+        holder.getTextView_UserName().setText(user.getName());
+        holder.getTextView_UserName().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUserHandler.userOnClick(position);
+                mUserHandler.userOnClick(user);
             }
         });
     }
@@ -42,11 +42,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         return mUserList.size();
     }
 
-    public void setIUserHandler(IUserHandler mIUserHandler) {
+    public void setUserHandler(IUserHandler mIUserHandler) {
         this.mUserHandler = mIUserHandler;
     }
 
-    public void releaseIUserHAndler() {
+    public void releaseUserHandler() {
         this.mUserHandler = null;
     }
+
+    public boolean checkUserHandler() {
+        return mUserHandler != null;
+    }
 }
+

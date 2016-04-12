@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,8 @@ import mitso.v.homework_17.api.interfaces.ConnectCallback;
 import mitso.v.homework_17.api.models.Photo;
 import mitso.v.homework_17.api.response.PhotoListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
+import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class PhotoFragment extends BaseFragment {
 
@@ -32,6 +35,8 @@ public class PhotoFragment extends BaseFragment {
         final View rootView = inflater.inflate(R.layout.photo_frgament, container, false);
 
         int id =  getArguments().getInt("album id");
+
+        if (CheckConnection.checkConnection(mMainActivity)) {
 
         Api.getPhotosByAlbum(id, new ConnectCallback() {
             @Override
@@ -61,6 +66,9 @@ public class PhotoFragment extends BaseFragment {
                 Log.d(LOG_TAG, "onFailure=" + errorMessage);
             }
         });
+
+        } else
+            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }

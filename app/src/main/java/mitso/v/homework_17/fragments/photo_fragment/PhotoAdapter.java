@@ -22,8 +22,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
     public void onBindViewHolder(PhotoViewHolder holder, final int position) {
         final Photo photo = mPhotoList.get(position);
 
-        holder.mTextView_PhotoTitle.setText(photo.getTitle());
-        holder.mTextView_PhotoUrl.setText(photo.getUrl());
+        holder.getTextView_PhotoTitle().setText(photo.getTitle());
+        holder.getTextView_PhotoUrl().setText(photo.getUrl());
     }
 
     @Override

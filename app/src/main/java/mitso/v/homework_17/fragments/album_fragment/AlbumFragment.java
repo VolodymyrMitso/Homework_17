@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,8 @@ import mitso.v.homework_17.api.models.Album;
 import mitso.v.homework_17.api.response.AlbumListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.photo_fragment.PhotoFragment;
+import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class AlbumFragment extends BaseFragment implements IAlbumHandler {
 
@@ -34,38 +37,51 @@ public class AlbumFragment extends BaseFragment implements IAlbumHandler {
 
         int id =  getArguments().getInt("id");
 
-        Api.getAlbumsByUser(id, new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                Log.d(LOG_TAG, "onSuccess");
+        if (CheckConnection.checkConnection(mMainActivity)) {
 
-                AlbumListResponse albumListResponse = (AlbumListResponse) object;
-                ArrayList<Album> albumArrayList = albumListResponse.getAlbums();
-                mAlbumList = albumArrayList;
+            Api.getAlbumsByUser(id, new ConnectCallback() {
+                @Override
+                public void onSuccess(Object object) {
+                    Log.d(LOG_TAG, "onSuccess");
 
-                Log.e(LOG_TAG, "albumArrayList.size:" + albumArrayList.size());
+                    AlbumListResponse albumListResponse = (AlbumListResponse) object;
+                    ArrayList<Album> albumArrayList = albumListResponse.getAlbums();
+                    mAlbumList = albumArrayList;
 
-                Log.e(LOG_TAG, "albumArrayList.first:" + albumArrayList.get(0));
-                Log.e(LOG_TAG, "albumArrayList.last:" + albumArrayList.get(9));
+                    Log.e(LOG_TAG, "albumArrayList.size:" + albumArrayList.size());
+
+                    Log.e(LOG_TAG, "albumArrayList.first:" + albumArrayList.get(0));
+                    Log.e(LOG_TAG, "albumArrayList.last:" + albumArrayList.get(9));
 
 
-                mRecyclerView_Album = (RecyclerView) rootView.findViewById(R.id.rv_Albums_AF);
-                mAlbumAdapter = new AlbumAdapter(mAlbumList);
-                mRecyclerView_Album.setAdapter(mAlbumAdapter);
-                mRecyclerView_Album.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                mRecyclerView_Album.addItemDecoration(new SpacingDecoration(spacingInPixels));
+                    mRecyclerView_Album = (RecyclerView) rootView.findViewById(R.id.rv_Albums_AF);
+                    mAlbumAdapter = new AlbumAdapter(mAlbumList);
+                    mRecyclerView_Album.setAdapter(mAlbumAdapter);
+                    mRecyclerView_Album.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                    mRecyclerView_Album.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-                mAlbumAdapter.setAlbumHandler(AlbumFragment.this);
-            }
+                    mAlbumAdapter.setAlbumHandler(AlbumFragment.this);
+                }
 
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
-                Log.d(LOG_TAG, "onFailure=" + errorMessage);
-            }
-        });
+                @Override
+                public void onFailure(Throwable throwable, String errorMessage) {
+                    Log.d(LOG_TAG, "onFailure=" + errorMessage);
+                }
+            });
+
+        } else
+            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mAlbumAdapter.checkAlbumHandler())
+            mAlbumAdapter.releaseAlbumHandler();
     }
 
     @Override

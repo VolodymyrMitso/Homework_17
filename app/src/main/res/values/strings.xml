@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Homework_17</string>
+
+    <string name="no_connection">
+        There is no connection.\n
+        Please turn on wi-fi or 3g/4g.\n
+        Please restart app.
+    </string>
 </resources>

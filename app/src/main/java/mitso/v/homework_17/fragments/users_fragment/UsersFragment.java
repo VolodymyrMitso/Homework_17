@@ -19,6 +19,8 @@ import mitso.v.homework_17.api.models.user.User;
 import mitso.v.homework_17.api.response.UserListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.UserInfoFragment;
+import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class UsersFragment extends BaseFragment implements IUserHandler {
 
@@ -33,47 +35,59 @@ public class UsersFragment extends BaseFragment implements IUserHandler {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.users_fragment, container, false);
 
-        Api.getUsers(new ConnectCallback() {
-            @Override
-            public void onSuccess(Object object) {
-                Log.d(LOG_TAG, "onSuccess");
+        if (CheckConnection.checkConnection(mMainActivity)) {
 
-                UserListResponse userListResponse = (UserListResponse) object;
-                ArrayList<User> userArrayList = userListResponse.getUsers();
-                mUsersList = userArrayList;
+            Api.getUsers(new ConnectCallback() {
+                @Override
+                public void onSuccess(Object object) {
+                    Log.d(LOG_TAG, "onSuccess");
 
-                Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
-                for (int i = 0; i < userArrayList.size(); i++)
-                    Log.e(LOG_TAG, userArrayList.get(i).toString());
+                    UserListResponse userListResponse = (UserListResponse) object;
+                    ArrayList<User> userArrayList = userListResponse.getUsers();
+                    mUsersList = userArrayList;
 
-                mRecyclerView_Users = (RecyclerView) rootView.findViewById(R.id.rv_Users_UF);
-                mUserAdapter = new UserAdapter(mUsersList);
-                mRecyclerView_Users.setAdapter(mUserAdapter);
-                mRecyclerView_Users.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
-                int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
-                mRecyclerView_Users.addItemDecoration(new SpacingDecoration(spacingInPixels));
+                    Log.e(LOG_TAG, "userArrayList.size: " + userArrayList.size());
+                    for (int i = 0; i < userArrayList.size(); i++)
+                        Log.e(LOG_TAG, userArrayList.get(i).toString());
 
-                mUserAdapter.setIUserHandler(UsersFragment.this);
-            }
+                    mRecyclerView_Users = (RecyclerView) rootView.findViewById(R.id.rv_Users_UF);
+                    mUserAdapter = new UserAdapter(mUsersList);
+                    mRecyclerView_Users.setAdapter(mUserAdapter);
+                    mRecyclerView_Users.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
+                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.d_size_10dp);
+                    mRecyclerView_Users.addItemDecoration(new SpacingDecoration(spacingInPixels));
 
-            @Override
-            public void onFailure(Throwable throwable, String errorMessage) {
-                Log.d(LOG_TAG, "onFailure=" + errorMessage);
-            }
-        });
+                    mUserAdapter.setUserHandler(UsersFragment.this);
+                }
+
+                @Override
+                public void onFailure(Throwable throwable, String errorMessage) {
+                    Log.d(LOG_TAG, "onFailure=" + errorMessage);
+                }
+            });
+
+        } else
+            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }
 
     @Override
-    public void userOnClick(int position) {
+    public void onPause() {
+        super.onPause();
 
-        Toast.makeText(mMainActivity, mUsersList.get(position).toString(), Toast.LENGTH_SHORT).show();
+        if (mUserAdapter.checkUserHandler())
+            mUserAdapter.releaseUserHandler();
+    }
+
+    @Override
+    public void userOnClick(User user) {
+
+        Toast.makeText(mMainActivity, user.toString(), Toast.LENGTH_SHORT).show();
 
         UserInfoFragment userInfoFragment = new UserInfoFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("user", mUsersList.get(position));
-//        bundle.putInt("id", mUsersList.get(position).getId());
+        bundle.putSerializable("user", user);
         userInfoFragment.setArguments(bundle);
 
         mMainActivity.getSupportFragmentManager()

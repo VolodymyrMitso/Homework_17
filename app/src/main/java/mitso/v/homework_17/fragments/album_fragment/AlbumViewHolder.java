@@ -8,11 +8,15 @@ import mitso.v.homework_17.R;
 
 public class AlbumViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView mTextView_AlbumTitle;
+    private TextView mTextView_AlbumTitle;
 
     public AlbumViewHolder(View itemView) {
         super(itemView);
 
         mTextView_AlbumTitle = (TextView) itemView.findViewById(R.id.tv_AlbumTitle_AC);
+    }
+
+    public TextView getTextView_AlbumTitle() {
+        return mTextView_AlbumTitle;
     }
 }

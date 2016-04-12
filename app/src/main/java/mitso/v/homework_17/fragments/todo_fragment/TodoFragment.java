@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,8 @@ import mitso.v.homework_17.api.interfaces.ConnectCallback;
 import mitso.v.homework_17.api.models.Todo;
 import mitso.v.homework_17.api.response.TodoListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
+import mitso.v.homework_17.fragments.utils.CheckConnection;
+import mitso.v.homework_17.fragments.utils.SpacingDecoration;
 
 public class TodoFragment extends BaseFragment {
 
@@ -32,6 +35,8 @@ public class TodoFragment extends BaseFragment {
         final View rootView = inflater.inflate(R.layout.todo_fragment, container, false);
 
         int id =  getArguments().getInt("id");
+
+        if (CheckConnection.checkConnection(mMainActivity)) {
 
         Api.getTodosByUser(id, new ConnectCallback() {
             @Override
@@ -58,6 +63,9 @@ public class TodoFragment extends BaseFragment {
 
             }
         });
+
+        } else
+            Toast.makeText(mMainActivity, getResources().getString(R.string.no_connection), Toast.LENGTH_SHORT).show();
 
         return rootView;
     }

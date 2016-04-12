@@ -1,4 +1,4 @@
-package mitso.v.homework_17.fragments.post_fragment;
+package mitso.v.homework_17.fragments.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

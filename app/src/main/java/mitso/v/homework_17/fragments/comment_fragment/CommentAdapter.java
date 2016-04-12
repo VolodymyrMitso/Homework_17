@@ -22,8 +22,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     @Override
     public void onBindViewHolder(CommentViewHolder holder, final int position) {
         final Comment comment = mCommentList.get(position);
-        holder.mTextView_CommentEmail.setText(comment.getEmail());
-        holder.mTextView_CommentEmail.setOnClickListener(new View.OnClickListener() {
+        holder.getTextView_CommentEmail().setText(comment.getEmail());
+        holder.getTextView_CommentEmail().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCommentHandler.commentOnClick(comment);
@@ -42,11 +42,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         return mCommentList.size();
     }
 
-    public void setAlbumHandler(ICommentHandler commentHandler) {
+    public void setCommentHandler(ICommentHandler commentHandler) {
         this.mCommentHandler = commentHandler;
     }
 
-    public void releaseIUserHAndler() {
+    public void releaseCommentHandler() {
         this.mCommentHandler = null;
+    }
+
+    public boolean checkCommentHandler() {
+        return mCommentHandler != null;
     }
 }
