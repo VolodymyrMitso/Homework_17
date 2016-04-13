@@ -18,6 +18,7 @@ import mitso.v.homework_17.R;
 import mitso.v.homework_17.api.Api;
 import mitso.v.homework_17.api.interfaces.ConnectCallback;
 import mitso.v.homework_17.api.models.Todo;
+import mitso.v.homework_17.api.response.TodoListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.utils.CheckConnection;
 import mitso.v.homework_17.fragments.utils.Constants;
@@ -29,7 +30,7 @@ public class TodoFragment extends BaseFragment {
 
     private RecyclerView        mRecyclerView_Todo;
     private TodoAdapter         mTodoAdapter;
-    private ArrayList<Todo>     mTodooList;
+    private ArrayList<Todo>     mTodoList;
 
     private Integer userId;
 
@@ -60,14 +61,14 @@ public class TodoFragment extends BaseFragment {
 
                         TodoListResponse todoListResponse = (TodoListResponse) object;
                         ArrayList<Todo> todoArrayList = todoListResponse.getTodos();
-                        mTodooList = todoArrayList;
+                        mTodoList = todoArrayList;
 
                         Log.e(LOG_TAG, String.valueOf(todoArrayList.size()));
                         Log.e(LOG_TAG, todoArrayList.get(0).toString());
                         Log.e(LOG_TAG, todoArrayList.get(todoArrayList.size() - 1).toString());
 
                         mRecyclerView_Todo = (RecyclerView) rootView.findViewById(R.id.rv_Todos_TF);
-                        mTodoAdapter = new TodoAdapter(mTodooList);
+                        mTodoAdapter = new TodoAdapter(mTodoList);
                         mRecyclerView_Todo.setAdapter(mTodoAdapter);
                         mRecyclerView_Todo.setLayoutManager(new GridLayoutManager(mMainActivity, 1));
                         int spacingInPixels = mMainActivity.getResources().getDimensionPixelSize(R.dimen.d_size_10dp);

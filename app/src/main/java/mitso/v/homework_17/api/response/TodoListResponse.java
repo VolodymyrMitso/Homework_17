@@ -1,4 +1,4 @@
-package mitso.v.homework_17.api;
+package mitso.v.homework_17.api.response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -6,6 +6,7 @@ import org.json.JSONException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import mitso.v.homework_17.api.Connect;
 import mitso.v.homework_17.api.interfaces.ModelResponse;
 import mitso.v.homework_17.api.models.Todo;
 
