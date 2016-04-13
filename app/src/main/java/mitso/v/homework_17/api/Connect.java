@@ -19,7 +19,7 @@ import mitso.v.homework_17.api.interfaces.ModelResponse;
 public class Connect {
 
     public static final int PARSER_JSON = 999;
-    private static final String LOG_TAG = Connect.class.getName();
+    private static final String LOG_TAG = "CONNECT_CLASS_TAG";
 
     private static Connect _instance;
     private AsyncHttpClient client;
@@ -39,7 +39,7 @@ public class Connect {
 
     public void getRequestWithParam(String url, RequestParams requestParams,final ModelResponse modelResponse , final ConnectCallback callback) {
 
-        Log.d(LOG_TAG, ApiConstants.URL_SERVER + url);
+        Log.e(LOG_TAG, ApiConstants.URL_SERVER + url);
 
         client.get(ApiConstants.URL_SERVER + url, requestParams,new JsonHttpResponseHandler()
                 {
