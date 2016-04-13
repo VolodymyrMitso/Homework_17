@@ -31,4 +31,6 @@
     <string name="s_post">POSTs</string>
     <string name="s_comment">COMMENTs</string>
 
+    <string name="s_add_user">Add User</string>
+
 </resources>
