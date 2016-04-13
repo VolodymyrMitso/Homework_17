@@ -4,7 +4,7 @@
     <string name="s_no_connection">
         There is no connection.\n
         Please turn on wi-fi or 3g/4g.\n
-        Please restart app.
+        Please restart the app.
     </string>
 
     <string name="s_connecting">Connecting …</string>
@@ -13,7 +13,7 @@
 
     <string name="s_error">
         Something went wrong.\n
-        Please restart app.
+        Please restart the app.
     </string>
     
     <string name="s_user_list">USER LIST : name</string>
