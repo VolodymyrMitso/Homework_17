@@ -7,7 +7,6 @@ import mitso.v.homework_17.api.response.AlbumListResponse;
 import mitso.v.homework_17.api.response.CommentListResponse;
 import mitso.v.homework_17.api.response.PhotoListResponse;
 import mitso.v.homework_17.api.response.PostListResponse;
-import mitso.v.homework_17.api.response.TodoListResponse;
 import mitso.v.homework_17.api.response.UserListResponse;
 
 public class Api {
