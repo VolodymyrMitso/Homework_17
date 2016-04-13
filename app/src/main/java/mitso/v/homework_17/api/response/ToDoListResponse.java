@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import mitso.v.homework_17.api.Connect;
 import mitso.v.homework_17.api.interfaces.ModelResponse;
+import mitso.v.homework_17.api.models.Todo;
 
 public class TodoListResponse implements ModelResponse {
     private ArrayList<Todo> todos;
