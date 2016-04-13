@@ -18,7 +18,6 @@ import mitso.v.homework_17.R;
 import mitso.v.homework_17.api.Api;
 import mitso.v.homework_17.api.interfaces.ConnectCallback;
 import mitso.v.homework_17.api.models.Todo;
-import mitso.v.homework_17.api.response.TodoListResponse;
 import mitso.v.homework_17.fragments.BaseFragment;
 import mitso.v.homework_17.fragments.utils.CheckConnection;
 import mitso.v.homework_17.fragments.utils.Constants;
