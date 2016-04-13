@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import mitso.v.homework_17.R;
-import mitso.v.homework_17.api.models.Todo;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoViewHolder> {
 
